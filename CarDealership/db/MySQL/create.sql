@@ -20,3 +20,17 @@ descricao varchar(60) not null,
 cnpj int(14) not null,
 primary key(id_loja)
 )
+
+create table carro(
+	id_carro int not null auto_increment,
+	cnpj_loja int not null,
+	placa varchar(7) not null,
+	modelo varchar(30) not null,
+	chassi varchar(30) not null,
+	ano int(4) not null,
+	quilometragem int(10) not null,
+	descricao varchar(120) not null,
+	valor boolean(10) not null,
+	fotos varchar(10) not null,
+	primary key(id_carro)
+);
