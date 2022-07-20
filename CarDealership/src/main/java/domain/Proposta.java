@@ -5,21 +5,26 @@ public class Proposta {
 	private Integer valor;
 	private String condPagamento;
 	private Integer dataAtual;
+	private String status;
+	private Cliente cliente;
+	
 	
 	public Proposta(Long id) {
 		this.id = id;
 	}
 	
 	public Proposta ( Integer valor, String condPagamento,
-			Integer dataAtual) {
+			Integer dataAtual, String status, Cliente cliente) {
 		this.valor = valor;
 		this.condPagamento = condPagamento;
 		this.dataAtual = dataAtual;
+		this.status = status;
+		this.cliente = cliente;
 	}
 	
 	public Proposta ( Long id, Integer valor, String condPagamento,
-			Integer dataAtual) {
-		this(valor, condPagamento, dataAtual);
+			Integer dataAtual, String status, Cliente cliente) {
+		this(valor, condPagamento, dataAtual, status, cliente);
 		this.id = id;
 	}
 	
@@ -47,6 +52,22 @@ public class Proposta {
 	}
 	public void setDataAtual(Integer dataAtual) {
 		this.dataAtual = dataAtual;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	
