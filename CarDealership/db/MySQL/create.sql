@@ -3,7 +3,7 @@ drop database if exists CarDealershipSQL;
 create database CarDealershipSQL;
 
 create table Cliente(id bigint not null auto_increment ,
-e-mail varchar(50) not null,
+email varchar(50) not null,
 senha varchar(50) not null, 
 cpf integer not null,
 nome varchar(50) not null, 
