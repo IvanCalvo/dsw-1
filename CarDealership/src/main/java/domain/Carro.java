@@ -2,7 +2,6 @@ package domain;
 
 public class Carro {
 	private Integer id_carro;
-	private Integer cnpj_loja;
 	private Loja loja; 
 	private String placa;
 	private String modelo; 
@@ -17,9 +16,8 @@ public class Carro {
 		this.id_carro = id;  
 	}
 	
-	public Carro(Loja loja, Integer cnpj_loja, String placa, String modelo, String chassi, Integer ano,
+	public Carro(Loja loja, String placa, String modelo, String chassi, Integer ano,
 				Integer quilometragem, String descricao, Float valor, String fotos) {
-		this.cnpj_loja = cnpj_loja;
 		this.loja = loja;
 		this.placa = placa;
 		this.modelo = modelo;
@@ -31,9 +29,9 @@ public class Carro {
 		this.fotos = fotos;
 	}
 	
-	public Carro(Integer id, Integer cnpj_loja, Loja loja, String placa, String modelo, String chassi, Integer ano,
+	public Carro(Integer id, Loja loja, String placa, String modelo, String chassi, Integer ano,
 			Integer quilometragem, String descricao, Float valor, String fotos) {
-		this(loja, cnpj_loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
+		this(loja,  placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
 		this.id_carro = id;
 	}
 	
@@ -45,13 +43,6 @@ public class Carro {
 		this.id_carro = id_carro;
 	}
 	
-	public Integer getCnpj_loja() {
-		return cnpj_loja;
-	}
-	
-	public void setCnpj_loja(Integer cnpj_loja) {
-		this.cnpj_loja = cnpj_loja;
-	}
 
 	public Loja getloja() {
 		return loja;

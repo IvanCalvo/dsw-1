@@ -70,7 +70,7 @@ public class CarroDAO extends GenericDAO{
             	String senha = resultSet.getString("senha");
             	
             	Loja loja = new Loja(id_loja, nome, email, senha, descricao, cnpj_loja);
-            	Carro carro = new Carro(id, cnpj_loja, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
+            	Carro carro = new Carro(id, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
             	listaCarros.add(carro);
             }
             resultSet.close();
@@ -107,7 +107,7 @@ public class CarroDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, carro.getCnpj_loja());
+            statement.setInt(1, carro.getloja().getCnpj());
             statement.setInt(2, carro.getloja().getId_loja());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
@@ -139,7 +139,7 @@ public class CarroDAO extends GenericDAO{
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-            	int cnpj_loja = resultSet.getInt("cnpj_loja");
+            	int cnpj_loja = resultSet.getInt("cnpj_loja");//Duvida sobre o cnpj
             	String placa = resultSet.getString("placa");
             	String modelo = resultSet.getString("modelo");
             	String chassi = resultSet.getString("chassi");
@@ -152,7 +152,7 @@ public class CarroDAO extends GenericDAO{
             	int id_loja = resultSet.getInt("id_loja");
             	Loja loja = new LojaDAO().get(id_loja);
             	
-            	carro = new Carro(id, cnpj_loja, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
+            	carro = new Carro(id, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
             }
 
             resultSet.close();
