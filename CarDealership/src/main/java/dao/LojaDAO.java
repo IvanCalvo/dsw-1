@@ -47,7 +47,7 @@ public class LojaDAO extends GenericDAO{
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                Long id = resultSet.getLong("id");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
@@ -106,7 +106,7 @@ public class LojaDAO extends GenericDAO{
         }
     }
 	
-	public Loja get(int id) {
+	public Loja get(Long id) {
         Loja loja = null;
         
         String sql = "SELECT * from lojas where id = ?";

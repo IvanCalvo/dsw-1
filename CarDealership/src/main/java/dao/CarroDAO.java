@@ -24,7 +24,7 @@ public class CarroDAO extends GenericDAO{
             PreparedStatement statement = conn.prepareStatement(sql);
             
             statement.setInt(1, carro.getloja().getCnpj());
-            statement.setInt(2, carro.getloja().getId_loja());
+            statement.setLong(2, carro.getloja().getId_loja());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
@@ -64,7 +64,7 @@ public class CarroDAO extends GenericDAO{
             	float valor = resultSet.getFloat("valor");
             	String fotos = resultSet.getString("fotos");
             	
-            	int id_loja = resultSet.getInt(6);
+            	Long id_loja = resultSet.getLong(6);
             	String nome = resultSet.getString("nome");
             	String email = resultSet.getString("email");
             	String senha = resultSet.getString("senha");
@@ -108,7 +108,7 @@ public class CarroDAO extends GenericDAO{
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setInt(1, carro.getloja().getCnpj());
-            statement.setInt(2, carro.getloja().getId_loja());
+            statement.setLong(2, carro.getloja().getId_loja());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
@@ -139,7 +139,7 @@ public class CarroDAO extends GenericDAO{
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-            	int cnpj_loja = resultSet.getInt("cnpj_loja");//Duvida sobre o cnpj
+            	
             	String placa = resultSet.getString("placa");
             	String modelo = resultSet.getString("modelo");
             	String chassi = resultSet.getString("chassi");
@@ -149,8 +149,9 @@ public class CarroDAO extends GenericDAO{
             	float valor = resultSet.getFloat("valor");
             	String fotos = resultSet.getString("fotos");
             	
-            	int id_loja = resultSet.getInt("id_loja");
+            	Long id_loja = resultSet.getLong("id_loja");
             	Loja loja = new LojaDAO().get(id_loja);
+           
             	
             	carro = new Carro(id, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
             }

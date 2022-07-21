@@ -1,14 +1,14 @@
 package domain;
 
 public class Loja {
-	private Integer id_loja;
+	private Long id_loja;
 	private String nome;
 	private String email;
 	private String senha;
 	private String descricao;
 	private Integer cnpj;
 	
-	public Loja(Integer id) {
+	public Loja(Long id) {
 		this.id_loja = id;
 	}
 	
@@ -20,16 +20,16 @@ public class Loja {
 		this.cnpj = cnpj;
 	}
 	
-	public Loja(Integer id_loja, String nome, String email, String senha, String descricao, Integer cnpj) {
+	public Loja(Long id_loja, String nome, String email, String senha, String descricao, Integer cnpj) {
 		this(nome, email, senha, descricao, cnpj);
 		this.id_loja = id_loja;
 	}
 
-	public Integer getId_loja() {
+	public Long getId_loja() {
 		return id_loja;
 	}
 
-	public void setId_loja(Integer id_loja) {
+	public void setId_loja(Long id_loja) {
 		this.id_loja = id_loja;
 	}
 
