@@ -60,7 +60,10 @@
          <configuration>
            <url>http://localhost:8080/manager/text</url>
            <server>Tomcat9</server>
+           <username>admin</username>
+           <password>admin</password>
            <path>/${project.artifactId}</path>
+           <update>true</update>
          </configuration>
        </plugin>
      </plugins>

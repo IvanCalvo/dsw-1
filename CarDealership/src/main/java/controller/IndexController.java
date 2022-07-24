@@ -13,7 +13,7 @@ import dao.UsuarioDAO;
 import domain.Usuario;
 import util.Erro;
 
-@WebServlet(name = "Index", urlPatterns = { "/index.jsp", "/logout.jsp" })
+@WebServlet(name = "Login", urlPatterns = { "/login.jsp", "/logout.jsp" })
 public class IndexController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

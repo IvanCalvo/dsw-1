@@ -19,7 +19,7 @@
                 </ul>
             </div>
         </c:if>
-        <form method="post" action="index.jsp">
+        <form method="post" action="Login">
             <table>
                 <tr>
                     <th>Login: </th>
