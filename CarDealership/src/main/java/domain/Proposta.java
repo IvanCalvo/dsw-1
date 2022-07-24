@@ -21,7 +21,7 @@ public class Proposta {
 		this.dataAtual = dataAtual;
 		this.status = status;
 		this.cliente = cliente;
-		this.setCarro(carro);
+		this.carro = carro;
 	}
 	
 	public Proposta ( Long id, Integer valor, String condPagamento,
