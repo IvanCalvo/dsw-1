@@ -10,7 +10,6 @@ import java.util.List;
 import domain.Carro;
 import domain.Loja;
 
-import java.sql.Connection;
 
 public class CarroDAO extends GenericDAO{
 	

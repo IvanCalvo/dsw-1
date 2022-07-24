@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Loja;
-import java.sql.Connection;
+
 
 public class LojaDAO extends GenericDAO{
 	

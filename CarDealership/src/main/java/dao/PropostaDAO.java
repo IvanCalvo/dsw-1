@@ -10,12 +10,13 @@ import java.util.List;
 
 import domain.Proposta;
 import domain.Cliente;
+import domain.Carro;
 
 public class PropostaDAO extends GenericDAO {
 
     public void insert(Proposta proposta) {
 
-        String sql = "INSERT INTO Proposta ( valor, condPagamento, dataAtual, statusCompra, cliente_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Proposta ( valor, condPagamento, dataAtual, statusCompra, cliente_id, carro_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -26,6 +27,7 @@ public class PropostaDAO extends GenericDAO {
             statement.setInt(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId());
+            statement.setLong(6, proposta.getCarro().getId_carro());
             statement.executeUpdate();
 
             statement.close();
@@ -60,8 +62,11 @@ public class PropostaDAO extends GenericDAO {
                 int telefone = resultSet.getInt("telefone");
                 String sexo = resultSet.getString("sexo");
                 int dataDeNascimento = resultSet.getInt("dataDeNascimento");
+                int carro_id = resultSet.getInt("carro_id");
+                
+                Carro carro =  new CarroDAO().get(carro_id);
                 Cliente cliente = new Cliente(cliente_id, email, senha, cpf, nome, telefone, sexo, dataDeNascimento);
-                Proposta proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente);
+                Proposta proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente, carro);
                 listaProposta.add(proposta);
             }
 
@@ -93,7 +98,7 @@ public class PropostaDAO extends GenericDAO {
 
     public void update(Proposta proposta) {
         String sql = "UPDATE Proposta SET valor = ?, condPagamento = ?, dataAtual = ?, statusCompra = ?";
-        sql += ", cliente_id = ? WHERE id = ?";
+        sql += ", cliente_id = ?, carro_id = ?, WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -104,7 +109,8 @@ public class PropostaDAO extends GenericDAO {
             statement.setInt(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId());
-            statement.setLong(6, proposta.getId());
+            statement.setLong(6, proposta.getCarro().getId_carro());
+            statement.setLong(7, proposta.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -132,9 +138,11 @@ public class PropostaDAO extends GenericDAO {
                 String status = resultSet.getString("statusCompra");
 
                 Long clienteID = resultSet.getLong("cliente_id");
+                Integer carroID = resultSet.getInt("carro_id");
                 Cliente cliente = new ClienteDAO().get(clienteID);
+                Carro carro = new CarroDAO().get(carroID);
 
-                proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente);
+                proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente, carro);
             }
 
             resultSet.close();
