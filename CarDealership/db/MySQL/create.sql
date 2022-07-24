@@ -24,8 +24,9 @@ create table lojas (
 );
 
 create table carro(
-	id_carro int not null auto_increment,
+	id int not null auto_increment,
 	cnpj_loja int not null,
+	id_loja int not null,
 	placa varchar(7) not null,
 	modelo varchar(30) not null,
 	chassi varchar(30) not null,
@@ -35,6 +36,7 @@ create table carro(
 	valor boolean(10) not null,
 	fotos varchar(10) not null,
 	primary key(id_carro)
+  foreign key(id_loja) references lojas(loja_id)
 );
 
 create table Proposta(
