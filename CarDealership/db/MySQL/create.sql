@@ -12,18 +12,19 @@ sexo char,
 dataDeNascimento date not null, primary key (id));
 
 create table lojas (
-id_loja int not null auto_increment,
+id int not null auto_increment,
 nome varchar(50) not null,
 email varchar(50) not null,
 senha varchar(50) not null,
 descricao varchar(60) not null,
 cnpj int(14) not null,
 primary key(id_loja)
-)
+);
 
 create table carro(
-	id_carro int not null auto_increment,
+	id int not null auto_increment,
 	cnpj_loja int not null,
+	id_loja int not null,
 	placa varchar(7) not null,
 	modelo varchar(30) not null,
 	chassi varchar(30) not null,
@@ -32,5 +33,6 @@ create table carro(
 	descricao varchar(120) not null,
 	valor boolean(10) not null,
 	fotos varchar(10) not null,
-	primary key(id_carro)
+	primary key(id_carro),
+	foreign key(id_loja) references lojas(loja_id)
 );
