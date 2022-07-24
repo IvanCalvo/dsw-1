@@ -15,7 +15,7 @@ public class PropostaDAO extends GenericDAO {
 
     public void insert(Proposta proposta) {
 
-        String sql = "INSERT INTO Proposta ( valor, condPagamento, dataAtual, status, cliente_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Proposta ( valor, condPagamento, dataAtual, statusCompra, cliente_id) VALUES (?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -51,7 +51,7 @@ public class PropostaDAO extends GenericDAO {
                 int valor = resultSet.getInt("valor");
                 String condPagamento = resultSet.getString("condPagamento");
                 int dataAtual = resultSet.getInt("dataAtual");
-                String status = resultSet.getString("status");
+                String status = resultSet.getString("statusCompra");
                 Long cliente_id = resultSet.getLong(6);
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
@@ -92,7 +92,7 @@ public class PropostaDAO extends GenericDAO {
     }
 
     public void update(Proposta proposta) {
-        String sql = "UPDATE Proposta SET valor = ?, condPagamento = ?, dataAtual = ?, status = ?";
+        String sql = "UPDATE Proposta SET valor = ?, condPagamento = ?, dataAtual = ?, statusCompra = ?";
         sql += ", cliente_id = ? WHERE id = ?";
 
         try {
@@ -129,7 +129,7 @@ public class PropostaDAO extends GenericDAO {
             	int valor = resultSet.getInt("valor");
                 String condPagamento = resultSet.getString("condPagamento");
                 int dataAtual = resultSet.getInt("dataAtual");
-                String status = resultSet.getString("status");
+                String status = resultSet.getString("statusCompra");
 
                 Long clienteID = resultSet.getLong("cliente_id");
                 Cliente cliente = new ClienteDAO().get(clienteID);
