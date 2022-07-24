@@ -3,14 +3,15 @@ drop database if exists CarDealershipSQL;
 create database CarDealershipSQL;
 
 create table Cliente(
-	id bigint not null auto_increment ,
-	e-mail varchar(50) not null,
+	id bigint not null auto_increment,
+	email varchar(50) not null,
 	senha varchar(50) not null, 
 	cpf integer not null,
 	nome varchar(50) not null, 
 	telefone integer not null, 
 	sexo char, 
-	dataDeNascimento date not null, primary key (id)
+	dataDeNascimento date not null, 
+	primary key (id)
 );
 
 create table lojas (
@@ -33,10 +34,10 @@ create table carro(
 	ano int(4) not null,
 	quilometragem int(10) not null,
 	descricao varchar(120) not null,
-	valor boolean(10) not null,
+	valor int(10) not null,
 	fotos varchar(10) not null,
-	primary key(id_carro)
-  foreign key(id_loja) references lojas(loja_id)
+	primary key(id_carro),
+  	foreign key(id_loja) references lojas(loja_id)
 );
 
 create table Proposta(
