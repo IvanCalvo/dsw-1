@@ -44,7 +44,7 @@ public class CarroDAO extends GenericDAO{
 		
 		List<Carro> listaCarros = new ArrayList<>();
 		
-		String sql = "SELECT * from carro c, lojas l where c.loja = l.id order by c.loja";
+		String sql = "SELECT * from carro c, lojas l where c.id_loja = l.id order by c.id_loja";
 					
 		try {
 			Connection conn = this.getConnection();
@@ -129,7 +129,7 @@ public class CarroDAO extends GenericDAO{
 	public Carro get(int id) {
         Carro carro = null;
 
-        String sql = "SELECT * from carro c, lojas l where c.id = ? and c.loja = l.id";
+        String sql = "SELECT * from carro c, lojas l where c.id = ? and c.id_loja = l.id";
 
         try {
             Connection conn = this.getConnection();
