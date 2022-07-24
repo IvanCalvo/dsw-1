@@ -7,7 +7,7 @@
         <title>CarDealership</title>
     </head>
     <body>
-        <a href="Login">Fazer Login</a>
+        <a href="login.jsp">Fazer Login</a>
         <a href="carro/lista.jsp">Listar Veículos</a>
     </body>
 </html>
