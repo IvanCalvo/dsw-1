@@ -49,3 +49,12 @@ create table Proposta(
 	foreign key (carro_id) references carro(id_carro),
 	primary key(id)
 );
+
+create table Usuario(
+	id bigint not null auto_increment, 
+	nome varchar(256) not null, 
+	email varchar(20) not null unique, 
+	senha varchar(64) not null, 
+	papel varchar(10), 
+	primary key (id)
+);
