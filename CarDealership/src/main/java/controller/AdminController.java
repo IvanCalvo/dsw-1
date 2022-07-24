@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import domain.Usuario;
 import util.Erro;
 
-@WebServlet(urlPatterns = "/usuario/*")
+@WebServlet(urlPatterns = "/admin/*")
 
 public class AdminController extends HttpServlet {
 

@@ -39,7 +39,7 @@ create table carro(
 	valor int(10) not null,
 	fotos varchar(10) not null,
 	primary key(id),
-  	foreign key(id_loja) references lojas(id_loja)
+  	foreign key(id_loja) references lojas(id)
 );
 
 create table Proposta(
