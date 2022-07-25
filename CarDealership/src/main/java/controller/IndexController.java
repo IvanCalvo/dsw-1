@@ -13,7 +13,7 @@ import dao.UsuarioDAO;
 import domain.Usuario;
 import util.Erro;
 
-@WebServlet(name = "Login", urlPatterns = { "/logout.jsp" })
+@WebServlet(name = "Login", urlPatterns = { "/doLogin.jsp" ,"/logout.jsp" })
 public class IndexController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,9 +28,9 @@ public class IndexController extends HttpServlet {
 			throws ServletException, IOException {
 		Erro erros = new Erro();
 		if (request.getParameter("bOK") != null) {
-			String login = request.getParameter("login");
+			String email = request.getParameter("email");
 			String senha = request.getParameter("senha");
-			if (login == null || login.isEmpty()) {
+			if (email == null || email.isEmpty()) {
 				erros.add("Login não informado!");
 			}
 			if (senha == null || senha.isEmpty()) {
@@ -38,14 +38,18 @@ public class IndexController extends HttpServlet {
 			}
 			if (!erros.isExisteErros()) {
 				UsuarioDAO dao = new UsuarioDAO();
-				Usuario usuario = dao.getbyEmail(login);
+				Usuario usuario = dao.getbyEmail(email);
 				if (usuario != null) {
 					if (usuario.getSenha().equals(senha)) {
 						request.getSession().setAttribute("usuarioLogado", usuario);
 						if (usuario.getPapel().equals("ADMIN")) {
 							response.sendRedirect("admin/");
 						} else {
-							response.sendRedirect("usuario/");
+							if (usuario.getPapel().equals("LOJA")) {
+								response.sendRedirect("loja/");
+							} else {
+								response.sendRedirect("usuario/");
+							}
 						}
 						return;
 					} else {
