@@ -15,7 +15,7 @@ public class LojaDAO extends GenericDAO{
 	
 	public void insert(Loja loja) {
 
-        String sql = "INSERT INTO lojas (nome, email, senha, descricao, cnpj) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO lojas (nome, email, descricao, cnpj) VALUES (?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -23,7 +23,6 @@ public class LojaDAO extends GenericDAO{
 
             statement.setString(1, loja.getNome());
             statement.setString(2, loja.getEmail());
-            statement.setString(3, loja.getSenha());
             statement.setString(4, loja.getDescricao());
             statement.setInt(5, loja.getCnpj());
             statement.executeUpdate();
@@ -50,11 +49,10 @@ public class LojaDAO extends GenericDAO{
                 Long id = resultSet.getLong("id");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
                 String descricao = resultSet.getString("descricao");
                 int cnpj = resultSet.getInt("cnpj");
                 
-                Loja loja = new Loja(id, nome, email, senha, descricao, cnpj);
+                Loja loja = new Loja(id, nome, email, descricao, cnpj);
                 listaLojas.add(loja);
             }
 
@@ -86,7 +84,7 @@ public class LojaDAO extends GenericDAO{
     }
 	
 	public void update(Loja loja) {
-        String sql = "UPDATE lojas SET nome = ?, email = ?, senha = ?, descricao = ?";
+        String sql = "UPDATE lojas SET nome = ?, email = ?, descricao = ?";
         sql += ", cnpj = ? WHERE id = ?";
 
         try {
@@ -95,7 +93,6 @@ public class LojaDAO extends GenericDAO{
 
             statement.setString(1, loja.getNome());
             statement.setString(2, loja.getEmail());
-            statement.setString(3, loja.getSenha());
             statement.setString(4, loja.getDescricao());
             statement.setInt(5, loja.getCnpj());
 
@@ -120,10 +117,9 @@ public class LojaDAO extends GenericDAO{
             if (resultSet.next()) {
             	String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
                 String descricao = resultSet.getString("descricao");
                 int cnpj = resultSet.getInt("cnpj");
-                loja = new Loja(id, nome, email, senha, descricao, cnpj);
+                loja = new Loja(id, nome, email, descricao, cnpj);
             }
 
             resultSet.close();
