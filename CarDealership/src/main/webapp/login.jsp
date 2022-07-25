@@ -19,16 +19,16 @@
                 </ul>
             </div>
         </c:if>
-        <form method="post" action="Login">
+        <form method="post" action="doLogin.jsp">
             <table>
                 <tr>
                     <th>Login: </th>
                     <td><input type="text" name="email"
-                               value="${param.login}"/></td>
+                               value="${param.email}"/></td>
                 </tr>
                 <tr>
                     <th>Senha: </th>
-                    <td><input type="password" name="senha" /></td>
+                    <td><input type="password" name="senha" value="${param.senha}" /></td>
                 </tr>
                 <tr>
                     <td colspan="2"> 
