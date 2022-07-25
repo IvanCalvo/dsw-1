@@ -36,7 +36,7 @@ create table carro(
 	ano int(4) not null,
 	quilometragem int(10) not null,
 	descricao varchar(120) not null,
-	valor int(10) not null,
+	valor float(11,2) not null,
 	fotos varchar(10) not null,
 	primary key(id),
   	foreign key(id_loja) references lojas(id)
