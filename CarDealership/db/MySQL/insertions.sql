@@ -3,9 +3,9 @@ use CarDealershipSQL;
 insert into Usuario(nome, email, senha, papel) values ('Administrador', 'admin', 'admin', 'ADMIN');
 insert into Usuario(nome, email, senha, papel) values ('Usuario', 'user', 'user', 'USER');
 
-insert into lojas(nome, email, senha, descricao, cnpj) values ('Loja 1', 'loja1@email.com', 'loja', 'Loja de Veículos número 1', 123);
-insert into lojas(nome, email, senha, descricao, cnpj) values ('Loja 2', 'loja2@email.com', 'loja', 'Loja de Veículos número 2', 456);
-insert into lojas(nome, email, senha, descricao, cnpj) values ('Loja 3', 'loja3@email.com', 'loja', 'Loja de Veículos número 3', 789);
+insert into lojas(nome, email, descricao, cnpj) values ('Loja 1', 'loja1@email.com', 'Loja de Veículos número 1', 123);
+insert into lojas(nome, email, descricao, cnpj) values ('Loja 2', 'loja2@email.com', 'Loja de Veículos número 2', 456);
+insert into lojas(nome, email, descricao, cnpj) values ('Loja 3', 'loja3@email.com', 'Loja de Veículos número 3', 789);
 
 insert into carro(cnpj_loja, id_loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos) values(
     123,
