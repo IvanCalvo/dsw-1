@@ -63,7 +63,7 @@ public class CarroDAO extends GenericDAO{
             	float valor = resultSet.getFloat("valor");
             	String fotos = resultSet.getString("fotos");
             	
-            	Long id_loja = resultSet.getLong(6);
+            	Long id_loja = resultSet.getLong("id_loja");
             	String nome = resultSet.getString("nome");
             	String email = resultSet.getString("email");
             	String senha = resultSet.getString("senha");
