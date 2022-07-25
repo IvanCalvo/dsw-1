@@ -15,7 +15,7 @@
 		<h2>
 			<a href="/<%=contextPath%>">Menu Principal</a>
 			&nbsp;&nbsp;&nbsp;
-			<a href="/<%=contextPath%>/carro/cadastro">Adicione Novo Carro</a>
+			<a href="/<%=contextPath%>/carros/cadastro">Adicione Novo Carro</a>
 		</h2>
 	</div>
 
@@ -31,7 +31,6 @@
 				<th>Quilometragem</th>
 				<th>Descrição</th>
 				<th>Valor</th>
-				<th>Acões</th>
 			</tr>
 			<c:forEach var="carro" items="${requestScope.listaCarros}">
 				<tr>
@@ -43,11 +42,6 @@
 					<td>${carro.quilometragem}</td>
 					<td>${carro.descricao}</td>
 					<td>${carro.valor}</td>
-					<td><a href="/<%= contextPath%>/carros/edicao?id=${carro.id}">Edição</a>
-						&nbsp;&nbsp;&nbsp;&nbsp; <a
-						href="/<%= contextPath%>/carros/remocao?id=${carro.id}"
-						onclick="return confirm('Tem certeza de que deseja excluir este item?');">
-							Remoção </a></td>
 				</tr>
 			</c:forEach>
 		</table>

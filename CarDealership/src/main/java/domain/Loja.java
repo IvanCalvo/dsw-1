@@ -20,6 +20,12 @@ public class Loja {
 		this.cnpj = cnpj;
 	}
 	
+	public Loja(Long id_loja, String nome, String descricao, Integer cnpj) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.cnpj = cnpj;
+	}
+	
 	public Loja(Long id_loja, String nome, String email, String senha, String descricao, Integer cnpj) {
 		this(nome, email, senha, descricao, cnpj);
 		this.id_loja = id_loja;

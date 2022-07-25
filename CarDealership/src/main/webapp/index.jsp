@@ -7,7 +7,10 @@
         <title>CarDealership</title>
     </head>
     <body>
+    	<%
+		String contextPath = request.getContextPath().replace("/", "");
+		%>
         <a href="login.jsp">Fazer Login</a>
-        <a href="carro/lista.jsp">Listar Veículos</a>
+        <a href="/<%=contextPath%>/carro/lista">Listar Veículos</a>
     </body>
 </html>

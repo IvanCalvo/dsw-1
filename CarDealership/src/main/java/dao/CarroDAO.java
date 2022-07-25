@@ -65,10 +65,9 @@ public class CarroDAO extends GenericDAO{
             	
             	Long id_loja = resultSet.getLong("id_loja");
             	String nome = resultSet.getString("nome");
-            	String email = resultSet.getString("email");
-            	String senha = resultSet.getString("senha");
+            	String descricao_loja = resultSet.getString("l.descricao");
             	
-            	Loja loja = new Loja(id_loja, nome, email, senha, descricao, cnpj_loja);
+            	Loja loja = new Loja(id_loja, nome, descricao_loja, cnpj_loja);
             	Carro carro = new Carro(id, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
             	listaCarros.add(carro);
             }
@@ -88,7 +87,7 @@ public class CarroDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setLong(1, carro.getId_carro());
+            statement.setLong(1, carro.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -116,7 +115,7 @@ public class CarroDAO extends GenericDAO{
             statement.setString(8, carro.getDescricao());
             statement.setFloat(9, carro.getValor());
             statement.setString(10, carro.getFotos());
-            statement.setInt(11, carro.getId_carro());
+            statement.setInt(11, carro.getId());
             statement.executeUpdate();
 
             statement.close();

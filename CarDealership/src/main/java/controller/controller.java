@@ -17,7 +17,7 @@ import dao.LojaDAO;
 import domain.Carro;
 import domain.Loja;
 
-@WebServlet(urlPatterns = "/carros/*")
+@WebServlet(urlPatterns = "/carro/*")
 
 public class controller extends HttpServlet {
 private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ private static final long serialVersionUID = 1L;
                 case "/atualizacao":
                     atualize(request, response);
                     break;
-                default:
+                case "/lista":
                     lista(request, response);
                     break;
             }
@@ -74,7 +74,7 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         List<Carro> listaCarros = dao.getAll();
         request.setAttribute("listaCarros", listaCarros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/lista.jsp");
         dispatcher.forward(request, response);
     }
 
