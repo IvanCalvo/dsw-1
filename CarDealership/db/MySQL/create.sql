@@ -17,7 +17,7 @@ create table Cliente(
 );
 
 create table lojas (
-	id int not null auto_increment,
+	id bigint not null auto_increment,
 	nome varchar(50) not null,
 	email varchar(50) not null,
 	senha varchar(50) not null,
@@ -29,7 +29,7 @@ create table lojas (
 create table carro(
 	id int not null auto_increment,
 	cnpj_loja int not null,
-	id_loja int not null,
+	id_loja bigint not null,
 	placa varchar(7) not null,
 	modelo varchar(30) not null,
 	chassi varchar(30) not null,
