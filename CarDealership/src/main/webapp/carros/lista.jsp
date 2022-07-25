@@ -14,8 +14,6 @@
 		<h1>Gerenciamento de Carros</h1>
 		<h2>
 			<a href="/<%=contextPath%>">Menu Principal</a>
-			&nbsp;&nbsp;&nbsp;
-			<a href="/<%=contextPath%>/carros/cadastro">Adicione Novo Carro</a>
 		</h2>
 	</div>
 
