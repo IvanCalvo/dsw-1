@@ -52,7 +52,7 @@ public class CarroDAO extends GenericDAO{
             
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
-            	int id = resultSet.getInt("id_carro");
+            	int id = resultSet.getInt("id");
             	int cnpj_loja = resultSet.getInt("cnpj_loja");
             	String placa = resultSet.getString("placa");
             	String modelo = resultSet.getString("modelo");
