@@ -28,9 +28,28 @@
 				<th>Loja</th>
 				<th>placa</th>
 				<th>Ano</th>
+				<th>Quilometragem</th>
+				<th>Descrição</th>
 				<th>Valor</th>
 				<th>Acões</th>
 			</tr>
+			<c:forEach var="carro" items="${requestScope.listaCarros}">
+				<tr>
+					<td>${carro.id}</td>
+					<td>${carro.modelo}</td>
+					<td>${carro.loja.nome}</td>
+					<td>${carro.placa}</td>
+					<td>${carro.ano}</td>
+					<td>${carro.quilometragem}</td>
+					<td>${carro.descricao}</td>
+					<td>${carro.valor}</td>
+					<td><a href="/<%= contextPath%>/carros/edicao?id=${carro.id}">Edição</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a
+						href="/<%= contextPath%>/carros/remocao?id=${carro.id}"
+						onclick="return confirm('Tem certeza de que deseja excluir este item?');">
+							Remoção </a></td>
+				</tr>
+			</c:forEach>
 		</table>
 	</div>
 </body>
