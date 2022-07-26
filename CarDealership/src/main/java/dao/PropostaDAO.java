@@ -27,7 +27,7 @@ public class PropostaDAO extends GenericDAO {
             statement.setInt(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId());
-            statement.setLong(6, proposta.getCarro().getId_carro());
+            statement.setLong(6, proposta.getCarro().getId());
             statement.executeUpdate();
 
             statement.close();
@@ -109,7 +109,7 @@ public class PropostaDAO extends GenericDAO {
             statement.setInt(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId());
-            statement.setLong(6, proposta.getCarro().getId_carro());
+            statement.setLong(6, proposta.getCarro().getId());
             statement.setLong(7, proposta.getId());
             statement.executeUpdate();
 

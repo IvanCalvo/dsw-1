@@ -12,21 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.CarroDAO;
 import dao.LojaDAO;
-import domain.Carro;
 import domain.Loja;
 
-@WebServlet(urlPatterns = "/carro/*")
+@WebServlet(urlPatterns = "/loja/*")
 
-public class controller extends HttpServlet {
+public class LojaController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
-    private CarroDAO dao;
+    private LojaDAO dao;
 
     @Override
     public void init() {
-        dao = new CarroDAO();
+        dao = new LojaDAO();
     }
 
     @Override
@@ -72,9 +70,9 @@ private static final long serialVersionUID = 1L;
 
     private void lista(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Carro> listaCarros = dao.getAll();
-        request.setAttribute("listaCarros", listaCarros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/lista.jsp");
+        List<Loja> listaLojas = dao.getAll();
+        request.setAttribute("listaLojas", listaLojas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/lista.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -89,17 +87,17 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Carro carro = dao.get(id);
-        request.setAttribute("carro", carro);
+        Long id = (long) Integer.parseInt(request.getParameter("id"));
+        Loja loja = dao.get(id);
+        request.setAttribute("loja", loja);
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -107,20 +105,16 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        String placa = request.getParameter("placa");
-        String modelo = request.getParameter("modelo");
-        String chassi = request.getParameter("chassi");
-        Integer ano = Integer.parseInt(request.getParameter("ano"));
-        Integer quilometragem = Integer.parseInt(request.getParameter("quilometragem"));
+        String email = request.getParameter("email");
+        String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
-        Float valor = Float.parseFloat(request.getParameter("valor"));
-        String fotos = request.getParameter("fotos");
+        Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
         
         Long id_loja = Long.parseLong(request.getParameter("loja"));
         Loja loja = new LojaDAO().get(id_loja);
         
-        Carro carro = new Carro(loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
-        dao.insert(carro);
+        loja = new Loja(email, nome, descricao, cnpj);
+        dao.insert(loja);
         response.sendRedirect("lista");
     }
 
@@ -128,30 +122,25 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
     	
-    	int id_carro = Integer.parseInt(request.getParameter("id"));
-    	String placa = request.getParameter("placa");
-        String modelo = request.getParameter("modelo");
-        String chassi = request.getParameter("chassi");
-        Integer ano = Integer.parseInt(request.getParameter("ano"));
-        Integer quilometragem = Integer.parseInt(request.getParameter("quilometragem"));
+    	//Falta a senha, talvez falte um atributo do tipo Usuário na classe Loja
+    	Long id = Long.parseLong(request.getParameter("id"));
+    	String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
         String descricao = request.getParameter("descricao");
-        Float valor = Float.parseFloat(request.getParameter("valor"));
-        String fotos = request.getParameter("fotos");
-        
-        Long id_loja = Long.parseLong(request.getParameter("loja"));
-        Loja loja = new LojaDAO().get(id_loja);
-        
-        Carro carro = new Carro(id_carro,loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
-        dao.update(carro);
+        Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
+       
+        //Loja loja = new LojaDAO().get(id);
+        Loja loja = new Loja(id, nome, email, descricao, cnpj);
+        dao.update(loja);
         response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        int id_carro = Integer.parseInt(request.getParameter("id"));
+        Long id_loja = Long.parseLong(request.getParameter("id"));
 
-        Carro carro = new Carro(id_carro);
-        dao.delete(carro);
+        Loja loja = new Loja(id_loja);
+        dao.delete(loja);
         response.sendRedirect("lista");
     }
 }
