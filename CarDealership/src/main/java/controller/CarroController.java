@@ -89,7 +89,7 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1L;
         Carro carro = dao.get(id);
         request.setAttribute("carro", carro);
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/formulario.jsp");
         dispatcher.forward(request, response);
     }
 

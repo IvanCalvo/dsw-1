@@ -73,7 +73,7 @@ public class LojaDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setLong(1, loja.getId_loja());
+            statement.setLong(1, loja.getId());
             statement.executeUpdate();
 
             statement.close();
