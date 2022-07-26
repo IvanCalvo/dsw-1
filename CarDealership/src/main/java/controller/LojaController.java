@@ -79,7 +79,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId_loja(), loja.getNome());
+            lojas.put(loja.getId(), loja.getNome());
         }
         return lojas;
     }
@@ -87,7 +87,7 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -97,7 +97,7 @@ private static final long serialVersionUID = 1L;
         Loja loja = dao.get(id);
         request.setAttribute("loja", loja);
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/formulario.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -81,7 +81,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId_loja(), loja.getNome());
+            lojas.put(loja.getId(), loja.getNome());
         }
         return lojas;
     }
