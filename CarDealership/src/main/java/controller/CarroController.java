@@ -19,7 +19,7 @@ import domain.Loja;
 
 @WebServlet(urlPatterns = "/carro/*")
 
-public class controller extends HttpServlet {
+public class CarroController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
     private CarroDAO dao;
@@ -81,7 +81,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId_loja(), loja.getNome());
+            lojas.put(loja.getId(), loja.getNome());
         }
         return lojas;
     }
@@ -89,7 +89,7 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1L;
         Carro carro = dao.get(id);
         request.setAttribute("carro", carro);
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
