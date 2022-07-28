@@ -11,6 +11,7 @@
         <p>Olá ${sessionScope.usuarioLogado.nome}</p>
         <ul>
             <li>
+            	<a href="CarDealership/carros/formulario.jsp">Adicione Novo Carro</a>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
             </li>
         </ul>
