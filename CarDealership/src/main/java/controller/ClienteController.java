@@ -13,24 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CarroDAO;
-import dao.PropostaDAO;
-import dao.ClienteDAO;
 import dao.LojaDAO;
+import dao.ClienteDAO;
 import domain.Carro;
 import domain.Loja;
 import domain.Cliente;
-import domain.Proposta;
 
-@WebServlet(urlPatterns = "/propostas/*")
+@WebServlet(urlPatterns = "/cliente/*")
 
-public class PropostaController extends HttpServlet {
+public class ClienteController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
-    private PropostaDAO dao;
+    private ClienteDAO dao;
 
     @Override
     public void init() {
-        dao = new PropostaDAO();
+        dao = new ClienteDAO();
     }
 
     @Override
@@ -65,22 +63,12 @@ private static final long serialVersionUID = 1L;
                 case "/atualizacao":
                     atualize(request, response);
                     break;
-                case "/lista":
-                    lista(request, response);
-                    break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
             throw new ServletException(e);
         }
     }
 
-    private void lista(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<Proposta> listaProposta = dao.getAll();
-        request.setAttribute("listaProposta", listaProposta);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
-        dispatcher.forward(request, response);
-    }
 
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
@@ -93,17 +81,17 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        Proposta proposta = dao.get(id);
-        request.setAttribute("proposta", proposta);
+        Cliente cliente = dao.get(id);
+        request.setAttribute("cliente", cliente);
         request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -111,19 +99,17 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        Long proposta_id = Long.parseLong(request.getParameter("id"));
-    	int valor = Integer.parseInt(request.getParameter("valor"));
-        String modelo = request.getParameter("condPagamento");
-    	int dataAtual = Integer.parseInt(request.getParameter("dataAtual"));
-    	String status = request.getParameter("status");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        Integer cpf = Integer.parseInt(request.getParameter("cpf"));
+        String nome = request.getParameter("nome");
+        Integer telefone = Integer.parseInt(request.getParameter("telefone"));
+        String sexo = request.getParameter("sexo");
+        Integer dataDeNascimento = Integer.parseInt(request.getParameter("dataDeNascimento"));
+
         
-        Long id_cliente = Long.parseLong(request.getParameter("cliente"));
-        Cliente cliente = new ClienteDAO().get(id_cliente);
-        
-        int id_carro = Integer.parseInt(request.getParameter("cliente"));
-        Carro carro = new CarroDAO().get(id_carro);
-        Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
-        dao.insert(proposta);
+        Cliente cliente = new Cliente(email, senha, cpf, nome, telefone, sexo, dataDeNascimento);
+        dao.insert(cliente);
         response.sendRedirect("lista");
     }
 
@@ -131,28 +117,27 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
     	
-    	Long proposta_id = Long.parseLong(request.getParameter("id"));
-    	int valor = Integer.parseInt(request.getParameter("valor"));
-        String modelo = request.getParameter("condPagamento");
-    	int dataAtual = Integer.parseInt(request.getParameter("dataAtual"));
-    	String status = request.getParameter("status");
+    	Long id = Long.parseLong(request.getParameter("id"));
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        Integer cpf = Integer.parseInt(request.getParameter("cpf"));
+        String nome = request.getParameter("nome");
+        Integer telefone = Integer.parseInt(request.getParameter("telefone"));
+        String sexo = request.getParameter("sexo");
+        Integer dataDeNascimento = Integer.parseInt(request.getParameter("dataDeNascimento"));
         
-        Long id_cliente = Long.parseLong(request.getParameter("cliente"));
-        Cliente cliente = new ClienteDAO().get(id_cliente);
         
-        int id_carro = Integer.parseInt(request.getParameter("cliente"));
-        Carro carro = new CarroDAO().get(id_carro);
-        Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
-        dao.update(proposta);
+        Cliente cliente = new Cliente(id, email, senha, cpf, nome, telefone, sexo, dataDeNascimento);
+        dao.update(cliente);
         response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        Long proposta_id = Long.parseLong(request.getParameter("id"));
+        Long id = Long.parseLong(request.getParameter("id"));
 
-        Proposta proposta = new Proposta(proposta_id);
-        dao.delete(proposta);
-        response.sendRedirect("listaProposta");
+        Cliente cliente = new Cliente(id);
+        dao.delete(cliente);
+        response.sendRedirect("lista");
     }
 }
