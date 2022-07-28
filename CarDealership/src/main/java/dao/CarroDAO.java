@@ -23,7 +23,7 @@ public class CarroDAO extends GenericDAO{
             PreparedStatement statement = conn.prepareStatement(sql);
             
             statement.setInt(1, carro.getloja().getCnpj());
-            statement.setLong(2, carro.getloja().getId_loja());
+            statement.setLong(2, carro.getloja().getId());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
@@ -106,7 +106,7 @@ public class CarroDAO extends GenericDAO{
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setInt(1, carro.getloja().getCnpj());
-            statement.setLong(2, carro.getloja().getId_loja());
+            statement.setLong(2, carro.getloja().getId());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
