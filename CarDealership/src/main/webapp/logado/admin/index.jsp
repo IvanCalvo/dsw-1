@@ -12,6 +12,7 @@
         <ul>
             <li>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
+                <a href="${pageContext.request.contextPath}/gerirusuario.jsp">Gestão de Usuários</a>
             </li>
         </ul>
     </body>
