@@ -59,6 +59,6 @@ create table Usuario(
 	nome varchar(50) not null, 
 	email varchar(50) not null unique, 
 	senha varchar(50) not null, 
-	papel varchar(10),
+	papel varchar(20),
 	primary key (id)
 );
