@@ -4,25 +4,32 @@ create database CarDealershipSQL;
 
 use CarDealershipSQL;
 
-create table Cliente(
+create table Usuario(
 	id bigint not null auto_increment,
-	email varchar(50) not null,
+	email varchar(50) not null unique, 
 	senha varchar(50) not null, 
+	papel varchar(20),
+	primary key (id)
+);
+
+create table Cliente(
+	id bigint not null,
 	cpf integer not null,
 	nome varchar(50) not null, 
 	telefone integer not null, 
 	sexo char, 
 	dataDeNascimento date not null, 
-	primary key (id)
+	primary key (id),
+	foreign key (id) references Usuario(id)
 );
 
 create table lojas (
-	id bigint not null auto_increment,
+	id bigint not null,
 	nome varchar(50) not null,
-	email varchar(50) not null,
 	descricao varchar(60) not null,
 	cnpj int(14) not null,
-	primary key(id)
+	primary key(id),
+	foreign key (id) references Usuario(id)
 );
 
 create table carro(
@@ -52,13 +59,4 @@ create table Proposta(
 	foreign key (cliente_id) references Cliente(id),
 	foreign key (carro_id) references carro(id),
 	primary key(id)
-);
-
-create table Usuario(
-	id bigint not null auto_increment, 
-	nome varchar(50) not null, 
-	email varchar(50) not null unique, 
-	senha varchar(50) not null, 
-	papel varchar(20),
-	primary key (id)
 );
