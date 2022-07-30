@@ -16,6 +16,7 @@
 			<a href="/<%=contextPath%>">Menu Principal</a>
 			<a href="/<%= contextPath%>/admin/cadastroCliente">Cadastra Cliente</a>
 			<a href="/<%= contextPath%>/admin/cadastroLoja">Cadastra Loja</a>
+			<a href="/<%= contextPath%>/admin/cadastro">Cadastra ADMIN</a>
 		</h2>
 	</div>
 
