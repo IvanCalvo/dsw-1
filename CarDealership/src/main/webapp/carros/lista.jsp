@@ -53,6 +53,11 @@
 				<th>Quilometragem</th>
 				<th>Descrição</th>
 				<th>Valor</th>
+				<c:choose>
+					<c:when test="${Usuario != null}">
+						<th>Ações</th>
+					</c:when>
+				</c:choose>
 			</tr>
 			<c:forEach var="carro" items="${requestScope.listaCarros}">
 				<tr>
@@ -64,6 +69,13 @@
 					<td>${carro.quilometragem}</td>
 					<td>${carro.descricao}</td>
 					<td>${carro.valor}</td>
+					<td>
+						<c:if test="${Usuario != null }">
+							<c:if test="${Usuario.papel == 'CLIENTE'}">
+								<a href="/<%=contextPath%>/propostas/cadastro?id=${carro.id}">Fazer Proposta</a>
+							</c:if>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -6,7 +6,7 @@ public class Proposta {
 	private Long id;
 	private Float valor;
 	private String condPagamento;
-	private LocalDate dataAtual;
+	private LocalDate dataProposta;
 	private String status;
 	private Cliente cliente;
 	private Carro carro;
@@ -16,19 +16,33 @@ public class Proposta {
 		this.id = id;
 	}
 	
-	public Proposta ( Float valor, String condPagamento,
-			LocalDate dataAtual, String status, Cliente cliente, Carro carro) {
+	public Proposta(Cliente cliente, Carro carro) {
+		this.cliente = cliente;
+		this.carro = carro;
+	}
+	
+	public Proposta(Float valor, String condPagamento, LocalDate dataProposta, Cliente cliente, Carro carro) {
 		this.valor = valor;
 		this.condPagamento = condPagamento;
-		this.dataAtual = dataAtual;
+		this.dataProposta = dataProposta;
+		this.status = "ABERTO";
+		this.cliente = cliente;
+		this.carro = carro;
+	}
+	
+	public Proposta ( Float valor, String condPagamento,
+			LocalDate dataProposta, String status, Cliente cliente, Carro carro) {
+		this.valor = valor;
+		this.condPagamento = condPagamento;
+		this.dataProposta = dataProposta;
 		this.status = status;
 		this.cliente = cliente;
 		this.carro = carro;
 	}
 	
 	public Proposta ( Long id, Float valor, String condPagamento,
-			LocalDate dataAtual, String status, Cliente cliente, Carro carro) {
-		this(valor, condPagamento, dataAtual, status, cliente, carro);
+			LocalDate dataProposta, String status, Cliente cliente, Carro carro) {
+		this(valor, condPagamento, dataProposta, status, cliente, carro);
 		this.id = id;
 	}
 	
@@ -51,11 +65,11 @@ public class Proposta {
 	public void setCondPagamento(String condPagamento) {
 		this.condPagamento = condPagamento;
 	}
-	public LocalDate getDataAtual() {
-		return dataAtual;
+	public LocalDate getdataProposta() {
+		return dataProposta;
 	}
-	public void setDataAtual(LocalDate dataAtual) {
-		this.dataAtual = dataAtual;
+	public void setdataProposta(LocalDate dataProposta) {
+		this.dataProposta = dataProposta;
 	}
 
 	public String getStatus() {

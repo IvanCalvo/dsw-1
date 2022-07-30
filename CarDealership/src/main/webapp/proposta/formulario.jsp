@@ -5,7 +5,7 @@
 <html>
 
 <head>
-<title>CarDEalerShip Propostas</title>
+<title>CarDealership</title>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 	</div>
 	<div align="center">
 		<c:choose>
-			<c:when test="${proposta != null}">
+			<c:when test="${proposta.id != null}">
 				<form action="atualizacao" method="post">
 					<%@include file="campos.jsp"%>
 				</form>
