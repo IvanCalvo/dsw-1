@@ -6,6 +6,29 @@
 <head>
 <title>CarDealership</title>
 </head>
+<script>
+	function filterFunction() {
+	  // Declare variables
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("modelFilter");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("tabelaCarros");
+	  tr = table.getElementsByTagName("tr");
+	
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[1];
+	    if (td) {
+	      txtValue = td.textContent || td.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }
+	  }
+	}
+</script>
 <body>
 	<%
 		String contextPath = request.getContextPath().replace("/", "");
@@ -18,7 +41,8 @@
 	</div>
 
 	<div align="center">
-		<table border="1">
+	<input type="text" id="modelFilter" onkeyup="filterFunction()" placeholder ="Procure pelo modelo">
+		<table id="tabelaCarros" border="1">
 			<caption>Lista de Carros</caption>
 			<tr>
 				<th>ID</th>
