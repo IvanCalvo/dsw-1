@@ -1,7 +1,7 @@
 package domain;
 
 public class Carro {
-	private Integer id;
+	private Long id;
 	private Loja loja; 
 	private String placa;
 	private String modelo; 
@@ -12,7 +12,7 @@ public class Carro {
 	private Float valor;  
 	private String fotos;
 	
-	public Carro(Integer id) {
+	public Carro(Long id) {
 		this.id = id;  
 	}
 	
@@ -29,17 +29,17 @@ public class Carro {
 		this.fotos = fotos;
 	}
 	
-	public Carro(Integer id, Loja loja, String placa, String modelo, String chassi, Integer ano,
+	public Carro(Long id, Loja loja, String placa, String modelo, String chassi, Integer ano,
 			Integer quilometragem, String descricao, Float valor, String fotos) {
 		this(loja,  placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
 		this.id = id;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

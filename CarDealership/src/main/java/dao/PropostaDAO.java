@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class PropostaDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, proposta.getValor());
+            statement.setFloat(1, proposta.getValor());
             statement.setString(2, proposta.getCondPagamento());
-            statement.setInt(3, proposta.getDataAtual());
+            statement.setObject(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
-            statement.setLong(5, proposta.getCliente().getId());
+            statement.setLong(5, proposta.getCliente().getId_usuario());
             statement.setLong(6, proposta.getCarro().getId());
             statement.executeUpdate();
 
@@ -50,22 +51,22 @@ public class PropostaDAO extends GenericDAO {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
-                int valor = resultSet.getInt("valor");
+                Float valor = resultSet.getFloat("valor");
                 String condPagamento = resultSet.getString("condPagamento");
-                int dataAtual = resultSet.getInt("dataAtual");
+                LocalDate dataAtual = LocalDate.parse(resultSet.getString("dataAtual"));
                 String status = resultSet.getString("statusCompra");
                 Long cliente_id = resultSet.getLong(6);
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
-                int cpf = resultSet.getInt("cpf");
+                String cpf = resultSet.getString("cpf");
                 String nome =  resultSet.getString("nome");
-                int telefone = resultSet.getInt("telefone");
+                String telefone = resultSet.getString("telefone");
                 String sexo = resultSet.getString("sexo");
-                int dataDeNascimento = resultSet.getInt("dataDeNascimento");
-                int carro_id = resultSet.getInt("carro_id");
+                LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
+                Long carro_id = resultSet.getLong("carro_id");
                 
                 Carro carro =  new CarroDAO().get(carro_id);
-                Cliente cliente = new Cliente(cliente_id, email, senha, cpf, nome, telefone, sexo, dataDeNascimento);
+                Cliente cliente = new Cliente(cliente_id, cpf, nome, telefone, sexo, dataDeNascimento);
                 Proposta proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente, carro);
                 listaProposta.add(proposta);
             }
@@ -104,11 +105,11 @@ public class PropostaDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, proposta.getValor());
+            statement.setFloat(1, proposta.getValor());
             statement.setString(2, proposta.getCondPagamento());
-            statement.setInt(3, proposta.getDataAtual());
+            statement.setObject(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
-            statement.setLong(5, proposta.getCliente().getId());
+            statement.setLong(5, proposta.getCliente().getId_usuario());
             statement.setLong(6, proposta.getCarro().getId());
             statement.setLong(7, proposta.getId());
             statement.executeUpdate();
@@ -132,13 +133,13 @@ public class PropostaDAO extends GenericDAO {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-            	int valor = resultSet.getInt("valor");
+            	Float valor = resultSet.getFloat("valor");
                 String condPagamento = resultSet.getString("condPagamento");
-                int dataAtual = resultSet.getInt("dataAtual");
+                LocalDate dataAtual = LocalDate.parse(resultSet.getString("dataAtual"));
                 String status = resultSet.getString("statusCompra");
 
                 Long clienteID = resultSet.getLong("cliente_id");
-                Integer carroID = resultSet.getInt("carro_id");
+                Long carroID = resultSet.getLong("carro_id");
                 Cliente cliente = new ClienteDAO().get(clienteID);
                 Carro carro = new CarroDAO().get(carroID);
 

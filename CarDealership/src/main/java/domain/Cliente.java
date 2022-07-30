@@ -1,85 +1,60 @@
 package domain;
 
+import java.time.LocalDate;
+
 public class Cliente {
-	private Long id;
-	private String email;
-	private String senha;
-	private Integer cpf;
 	private String nome;
-	private Integer telefone;
+	private Long id_usuario;
+	private String cpf;
+	private String telefone;
 	private String sexo;
-	private Integer dataDeNascimento;
+	private LocalDate dataDeNascimento;
 	
-	public Cliente(Long id) {
-		this.id = id;
+	public Cliente(Long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	
-	public Cliente(String email, String senha,
-			Integer cpf, String nome, Integer telefone,
-			String sexo, Integer dataDeNascimento) {
-		this.email = email;
-		this.senha = senha;
+	public Cliente(String cpf, String telefone, String nome, 
+			String sexo, LocalDate dataDeNascimento) {
 		this.cpf = cpf;
-		this.nome = nome;
 		this.telefone = telefone;
+		this.nome = nome;
 		this.sexo = sexo;
 		this.dataDeNascimento = dataDeNascimento;
 	}
 	
-	public Cliente(Long id, String email, String senha,
-			Integer cpf, String nome, Integer telefone,
-			String sexo, Integer dataDeNascimento) {
-		this(email, senha, cpf, nome, telefone, sexo,
-				dataDeNascimento);
-		this.id = id;
+	public Cliente(Long id_usuario, String cpf, String telefone, String nome,
+			String sexo, LocalDate dataDeNascimento) {
+		this(cpf,  telefone, nome, sexo, dataDeNascimento);
+		this.id_usuario = id_usuario;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Integer getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(Integer telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getSexo() {
@@ -90,11 +65,11 @@ public class Cliente {
 		this.sexo = sexo;
 	}
 
-	public Integer getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(Integer dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 }

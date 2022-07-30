@@ -15,16 +15,16 @@ public class LojaDAO extends GenericDAO{
 	
 	public void insert(Loja loja) {
 
-        String sql = "INSERT INTO lojas (nome, email, descricao, cnpj) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO lojas (id, nome, descricao, cnpj) VALUES (?,?,?,?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, loja.getNome());
-            statement.setString(2, loja.getEmail());
-            statement.setString(4, loja.getDescricao());
-            statement.setInt(5, loja.getCnpj());
+            statement.setLong(1, loja.getId_usuario());
+            statement.setString(2, loja.getNome());
+            statement.setString(3, loja.getDescricao());
+            statement.setString(4, loja.getCnpj());
             statement.executeUpdate();
 
             statement.close();
@@ -48,11 +48,10 @@ public class LojaDAO extends GenericDAO{
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 String nome = resultSet.getString("nome");
-                String email = resultSet.getString("email");
                 String descricao = resultSet.getString("descricao");
-                int cnpj = resultSet.getInt("cnpj");
+                String cnpj = resultSet.getString("cnpj");
                 
-                Loja loja = new Loja(id, nome, email, descricao, cnpj);
+                Loja loja = new Loja(id, nome, descricao, cnpj);
                 listaLojas.add(loja);
             }
 
@@ -73,7 +72,7 @@ public class LojaDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setLong(1, loja.getId());
+            statement.setLong(1, loja.getId_usuario());
             statement.executeUpdate();
 
             statement.close();
@@ -84,7 +83,7 @@ public class LojaDAO extends GenericDAO{
     }
 	
 	public void update(Loja loja) {
-        String sql = "UPDATE lojas SET nome = ?, email = ?, descricao = ?";
+        String sql = "UPDATE lojas SET nome = ?, descricao = ?";
         sql += ", cnpj = ? WHERE id = ?";
 
         try {
@@ -92,9 +91,9 @@ public class LojaDAO extends GenericDAO{
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setString(1, loja.getNome());
-            statement.setString(2, loja.getEmail());
-            statement.setString(4, loja.getDescricao());
-            statement.setInt(5, loja.getCnpj());
+            statement.setString(2, loja.getDescricao());
+            statement.setString(3, loja.getCnpj());
+            statement.setLong(4, loja.getId_usuario());
 
             statement.close();
             conn.close();
@@ -116,10 +115,9 @@ public class LojaDAO extends GenericDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
             	String nome = resultSet.getString("nome");
-                String email = resultSet.getString("email");
                 String descricao = resultSet.getString("descricao");
-                int cnpj = resultSet.getInt("cnpj");
-                loja = new Loja(id, nome, email, descricao, cnpj);
+                String cnpj = resultSet.getString("cnpj");
+                loja = new Loja(id, nome, descricao, cnpj);
             }
 
             resultSet.close();
