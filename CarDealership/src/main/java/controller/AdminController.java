@@ -135,6 +135,24 @@ public class AdminController extends HttpServlet {
         
         Usuario Usuario = new Usuario(email, senha, papel);
         dao.insert(Usuario);
+        if(papel == "LOJA") {
+        	String descricao = request.getParameter("descricao");
+        	String cnpj = request.getParameter("cnpj");
+        	
+        	Loja loja = new Loja( nome, descricao, cnpj);
+        	daoLoja.insert(loja);
+        }
+        else {
+        	if(papel == "CLIENTE"){
+        		String cpf = request.getParameter("cpf");
+        		String telefone = request.getParameter("telefone");
+        		String sexo = request.getParameter("sexo");
+        		String dataNascimento = request.getParameter("dataNascimento");
+        		
+        		Cliente cliente = new Cliente( cpf, telefone, nome, sexo, dataNascimento);
+        		daoCliente.insert(cliente);
+        	}
+        }
         response.sendRedirect("lista");
     }
 
@@ -152,17 +170,17 @@ public class AdminController extends HttpServlet {
         dao.update(Usuario);
         if(papel == "LOJA") {
         	String descricao = request.getParameter("descricao");
-        	Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
+        	String cnpj = request.getParameter("cnpj");
         	
         	Loja loja = new Loja(Usuario_id, nome, descricao, cnpj);
         	daoLoja.update(loja);
         }
         else {
         	if(papel == "CLIENTE"){
-        		Integer cpf = Integer.parseInt(request.getParameter("cpf"));
-        		Integer telefone = Integer.parseInt(request.getParameter("telefone"));
+        		String cpf = request.getParameter("cpf");
+        		String telefone = request.getParameter("telefone");
         		String sexo = request.getParameter("sexo");
-        		Integer dataNascimento = Integer.parseInt(request.getParameter("dataNascimento"));
+        		String dataNascimento = request.getParameter("dataNascimento");
         		
         		Cliente cliente = new Cliente(Usuario_id, cpf, telefone, nome, sexo, dataNascimento);
         		daoCliente.update(cliente);

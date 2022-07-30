@@ -2,9 +2,9 @@ package domain;
 
 public class Proposta {
 	private Long id;
-	private Integer valor;
+	private Float valor;
 	private String condPagamento;
-	private Integer dataAtual;
+	private String dataAtual;
 	private String status;
 	private Cliente cliente;
 	private Carro carro;
@@ -14,8 +14,8 @@ public class Proposta {
 		this.id = id;
 	}
 	
-	public Proposta ( Integer valor, String condPagamento,
-			Integer dataAtual, String status, Cliente cliente, Carro carro) {
+	public Proposta ( Float valor, String condPagamento,
+			String dataAtual, String status, Cliente cliente, Carro carro) {
 		this.valor = valor;
 		this.condPagamento = condPagamento;
 		this.dataAtual = dataAtual;
@@ -24,8 +24,8 @@ public class Proposta {
 		this.carro = carro;
 	}
 	
-	public Proposta ( Long id, Integer valor, String condPagamento,
-			Integer dataAtual, String status, Cliente cliente, Carro carro) {
+	public Proposta ( Long id, Float valor, String condPagamento,
+			String dataAtual, String status, Cliente cliente, Carro carro) {
 		this(valor, condPagamento, dataAtual, status, cliente, carro);
 		this.id = id;
 	}
@@ -37,10 +37,10 @@ public class Proposta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getValor() {
+	public Float getValor() {
 		return valor;
 	}
-	public void setValor(Integer valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 	public String getCondPagamento() {
@@ -49,10 +49,10 @@ public class Proposta {
 	public void setCondPagamento(String condPagamento) {
 		this.condPagamento = condPagamento;
 	}
-	public Integer getDataAtual() {
+	public String getDataAtual() {
 		return dataAtual;
 	}
-	public void setDataAtual(Integer dataAtual) {
+	public void setDataAtual(String dataAtual) {
 		this.dataAtual = dataAtual;
 	}
 

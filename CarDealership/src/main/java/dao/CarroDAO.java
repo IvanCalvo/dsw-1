@@ -22,8 +22,8 @@ public class CarroDAO extends GenericDAO{
 			Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
             
-            statement.setInt(1, carro.getloja().getCnpj());
-            statement.setLong(2, carro.getloja().getId());
+            statement.setString(1, carro.getloja().getCnpj());
+            statement.setLong(2, carro.getloja().getId_usuario());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
@@ -52,8 +52,8 @@ public class CarroDAO extends GenericDAO{
             
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
-            	int id = resultSet.getInt("id");
-            	int cnpj_loja = resultSet.getInt("cnpj_loja");
+            	Long id = resultSet.getLong("id");
+            	String cnpj_loja = resultSet.getString("cnpj_loja");
             	String placa = resultSet.getString("placa");
             	String modelo = resultSet.getString("modelo");
             	String chassi = resultSet.getString("chassi");
@@ -105,8 +105,8 @@ public class CarroDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, carro.getloja().getCnpj());
-            statement.setLong(2, carro.getloja().getId());
+            statement.setString(1, carro.getloja().getCnpj());
+            statement.setLong(2, carro.getloja().getId_usuario());
             statement.setString(3, carro.getPlaca());
             statement.setString(4, carro.getModelo());
             statement.setString(5, carro.getChassi());
@@ -115,7 +115,7 @@ public class CarroDAO extends GenericDAO{
             statement.setString(8, carro.getDescricao());
             statement.setFloat(9, carro.getValor());
             statement.setString(10, carro.getFotos());
-            statement.setInt(11, carro.getId());
+            statement.setLong(11, carro.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -125,7 +125,7 @@ public class CarroDAO extends GenericDAO{
         }
     }
 	
-	public Carro get(int id) {
+	public Carro get(Long id) {
         Carro carro = null;
 
         String sql = "SELECT * from carro c, lojas l where c.id = ? and c.id_loja = l.id";
@@ -134,7 +134,7 @@ public class CarroDAO extends GenericDAO{
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
             	

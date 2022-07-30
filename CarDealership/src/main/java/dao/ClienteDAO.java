@@ -84,11 +84,11 @@ public class ClienteDAO extends GenericDAO {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int cpf = resultSet.getInt("cpf");
-                int telefone = resultSet.getInt("telefone");
+                String cpf = resultSet.getString("cpf");
+                String telefone = resultSet.getString("telefone");
                 String nome = resultSet.getString("nome");
                 String sexo = resultSet.getString("sexo");
-                int dataDeNascimento = resultSet.getInt("dataDeNascimento");
+                String dataDeNascimento = resultSet.getString("dataDeNascimento");
 
                 cliente = new Cliente(id, cpf, telefone, nome, sexo, dataDeNascimento);
             }

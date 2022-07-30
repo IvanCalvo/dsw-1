@@ -81,7 +81,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId(), loja.getNome());
+            lojas.put(loja.getId_usuario(), loja.getNome());
         }
         return lojas;
     }
@@ -95,7 +95,7 @@ private static final long serialVersionUID = 1L;
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        Long id = Long.parseLong(request.getParameter("id"));
         Carro carro = dao.get(id);
         request.setAttribute("carro", carro);
         request.setAttribute("lojas", getLojas());
@@ -128,7 +128,7 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
     	
-    	int id_carro = Integer.parseInt(request.getParameter("id"));
+    	Long id_carro = Long.parseLong(request.getParameter("id"));
     	String placa = request.getParameter("placa");
         String modelo = request.getParameter("modelo");
         String chassi = request.getParameter("chassi");
@@ -148,7 +148,7 @@ private static final long serialVersionUID = 1L;
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        int id_carro = Integer.parseInt(request.getParameter("id"));
+        Long id_carro = Long.parseLong(request.getParameter("id"));
 
         Carro carro = new Carro(id_carro);
         dao.delete(carro);

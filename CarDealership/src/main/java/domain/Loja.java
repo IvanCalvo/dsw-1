@@ -17,6 +17,13 @@ public class Loja {
 		this.descricao = descricao;
 		this.cnpj = cnpj;
 	}
+	
+	public Loja( String nome, String descricao, String cnpj) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.cnpj = cnpj;
+	}
+
 
 	public Long getId_usuario() {
 		return id_usuario;

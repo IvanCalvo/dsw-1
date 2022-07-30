@@ -85,7 +85,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId(), loja.getNome());
+            lojas.put(loja.getId_usuario(), loja.getNome());
         }
         return lojas;
     }
@@ -112,15 +112,15 @@ private static final long serialVersionUID = 1L;
         request.setCharacterEncoding("UTF-8");
         
         Long proposta_id = Long.parseLong(request.getParameter("id"));
-    	int valor = Integer.parseInt(request.getParameter("valor"));
+    	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	int dataAtual = Integer.parseInt(request.getParameter("dataAtual"));
+    	String dataAtual = request.getParameter("dataAtual");
     	String status = request.getParameter("status");
         
         Long id_cliente = Long.parseLong(request.getParameter("cliente"));
         Cliente cliente = new ClienteDAO().get(id_cliente);
         
-        int id_carro = Integer.parseInt(request.getParameter("cliente"));
+        Long id_carro = Long.parseLong(request.getParameter("cliente"));
         Carro carro = new CarroDAO().get(id_carro);
         Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
         dao.insert(proposta);
@@ -132,15 +132,15 @@ private static final long serialVersionUID = 1L;
     	request.setCharacterEncoding("UTF-8");
     	
     	Long proposta_id = Long.parseLong(request.getParameter("id"));
-    	int valor = Integer.parseInt(request.getParameter("valor"));
+    	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	int dataAtual = Integer.parseInt(request.getParameter("dataAtual"));
+    	String dataAtual = request.getParameter("dataAtual");
     	String status = request.getParameter("status");
         
         Long id_cliente = Long.parseLong(request.getParameter("cliente"));
         Cliente cliente = new ClienteDAO().get(id_cliente);
         
-        int id_carro = Integer.parseInt(request.getParameter("cliente"));
+        Long id_carro = Long.parseLong(request.getParameter("cliente"));
         Carro carro = new CarroDAO().get(id_carro);
         Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
         dao.update(proposta);
