@@ -118,8 +118,22 @@ public class AdminController extends HttpServlet {
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        Usuario Usuario = dao.getbyID(id);
-        request.setAttribute("Usuario", Usuario);
+        Usuario usuario = dao.getbyID(id);
+        request.setAttribute("Usuario", usuario);
+        
+        if (usuario.getPapel().equals("LOJA") ) {
+        	Loja loja = daoLoja.get(id);
+        	request.setAttribute("Loja", loja);
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioLoja.jsp");
+            dispatcher.forward(request, response);
+        }else {
+        	if(usuario.getPapel().equals("CLIENTE")){
+        		Cliente cliente = daoCliente.get(id);
+            	request.setAttribute("Cliente", cliente);
+            	RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioCliente.jsp");
+                dispatcher.forward(request, response);
+        	}
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -194,6 +208,18 @@ public class AdminController extends HttpServlet {
         Long Usuario_id = Long.parseLong(request.getParameter("id"));
 
         Usuario Usuario = new Usuario(Usuario_id);
+        Usuario usuario = dao.getbyID(Usuario_id);
+        
+        if (usuario.getPapel() == "LOJA" ) {
+        	Loja loja = daoLoja.get(Usuario_id);
+        	daoLoja.delete(loja);
+        }else {
+        	if(usuario.getPapel() == "CLIENTE"){
+        		Cliente cliente = daoCliente.get(Usuario_id);
+        		daoCliente.delete(cliente);
+            	
+        	}
+        }
         dao.delete(Usuario);
         response.sendRedirect("listaUsuario");
     }

@@ -34,18 +34,18 @@
 	</tr>
 	<tr>
 		<td><label for="papel">Papel</label></td>
-		<td><input type="text" id="papel" name="papel" size="20" required
+		<td><input type="text" value="LOJA" readonly id="papel" name="papel" size="20" required
 			value="${Usuario.papel}" /></td>
 	</tr>
 	<tr>
 		<td><label for="descricao">Descricao</label></td>
 		<td><input type="text" id="descricao" name="descricao" size="120" required
-			value="${Loja.papel}" /></td>
+			value="${Loja.descricao}" /></td>
 	</tr>
 	<tr>
 		<td><label for="cnpj">CNPJ</label></td>
 		<td><input type="text" id="cnpj" name="cnpj" size="14" required
-			value="${Loja.papel}" /></td>
+			value="${Loja.cnpj}" /></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center"><input type="submit" value="Salva" /></td>

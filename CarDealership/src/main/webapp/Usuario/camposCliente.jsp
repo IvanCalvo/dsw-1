@@ -20,7 +20,7 @@
 	<tr>
 		<td><label for="nome">Nome</label></td>
 		<td><input type="text" id="nome" name="nome" size="50"
-			required value="${Usuario.nome}" /></td>
+			required value="${Cliente.nome}" /></td>
 	</tr>
 	<tr>
 		<td><label for="email">Email</label></td>
@@ -34,7 +34,7 @@
 	</tr>
 	<tr>
 		<td><label for="papel">Papel</label></td>
-		<td><input type="text" id="papel" name="papel" size="20" required
+		<td><input type="text" value="CLIENTE" readonly id="papel" name="papel" size="20" required
 			value="${Usuario.papel}" /></td>
 	</tr>
 	<tr>
