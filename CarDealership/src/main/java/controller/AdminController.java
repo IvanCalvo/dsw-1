@@ -149,7 +149,7 @@ public class AdminController extends HttpServlet {
         
         Usuario Usuario = new Usuario(email, senha, papel);
         dao.insert(Usuario);
-        if(papel == "LOJA") {
+        if(papel.equals("LOJA")) {
         	String descricao = request.getParameter("descricao");
         	String cnpj = request.getParameter("cnpj");
         	
@@ -157,7 +157,7 @@ public class AdminController extends HttpServlet {
         	daoLoja.insert(loja);
         }
         else {
-        	if(papel == "CLIENTE"){
+        	if(papel.equals("CLIENTE")){
         		String cpf = request.getParameter("cpf");
         		String telefone = request.getParameter("telefone");
         		String sexo = request.getParameter("sexo");
