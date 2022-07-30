@@ -53,9 +53,9 @@
 			value="${Cliente.sexo}" /></td>
 	</tr>
 	<tr>
-		<td><label for="dataNascimento">Data de Nascimento</label></td>
-		<td><input type="date" id="dataNascimento" name="dataNascimento"  required
-			value="${Cliente.dataNascimento}" /></td>
+		<td><label for="dataNascimento">Data de Nascimento {yyyy-MM-dd}</label></td>
+		<td><input type="text" id="dataNascimento" name="dataNascimento"  required
+			value="${Cliente.dataDeNascimento}" /></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center"><input type="submit" value="Salva" /></td>

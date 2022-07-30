@@ -11,17 +11,21 @@ public class ClienteDAO extends GenericDAO {
 
     public void insert(Cliente cliente) {
 
-        String sql = "INSERT INTO Cliente (cpf, telefone, nome, sexo, dataDeNascimento) VALUES ( ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente (id, cpf, telefone, nome, sexo, dataDeNascimento) VALUES ( ?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, cliente.getCpf());
-            statement.setString(2, cliente.getTelefone());
-            statement.setString(3, cliente.getNome());
-            statement.setString(4, cliente.getSexo());
-            statement.setString(5, cliente.getDataDeNascimento());
+            statement.setLong(1, cliente.getId_usuario());
+            statement.setString(2, cliente.getCpf());
+            statement.setString(3, cliente.getTelefone());
+            statement.setString(4, cliente.getNome());
+            statement.setString(5, cliente.getSexo());
+            statement.setString(6, cliente.getDataDeNascimento());
+            
+            System.out.println(cliente.getDataDeNascimento());
+            
             statement.executeUpdate();
 
             statement.close();

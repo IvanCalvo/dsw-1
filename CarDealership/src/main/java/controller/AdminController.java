@@ -162,7 +162,7 @@ public class AdminController extends HttpServlet {
         		String telefone = request.getParameter("telefone");
         		String sexo = request.getParameter("sexo");
         		String dataNascimento = request.getParameter("dataNascimento");
-        		
+      
         		Cliente cliente = new Cliente( cpf, telefone, nome, sexo, dataNascimento);
         		daoCliente.insert(cliente);
         	}
@@ -221,6 +221,6 @@ public class AdminController extends HttpServlet {
         	}
         }
         dao.delete(Usuario);
-        response.sendRedirect("listaUsuario");
+        response.sendRedirect("lista");
     }
 }
