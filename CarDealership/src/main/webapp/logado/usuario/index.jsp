@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>Página do Usuário</h1>
-        <p>Olá ${sessionScope.usuarioLogado.nome}</p>
+        <p>Olá ${sessionScope.usuarioLogado.email}</p>
         <ul>
             <li>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>

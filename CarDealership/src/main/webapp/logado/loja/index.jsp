@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>Página da Loja</h1>
-        <p>Olá ${sessionScope.usuarioLogado.nome}</p>
+        <p>Olá ${sessionScope.usuarioLogado.email}</p>
         <ul>
             <li>
             	<a href="CarDealership/carros/formulario.jsp">Adicione Novo Carro</a>
