@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -149,11 +150,12 @@ public class AdminController extends HttpServlet {
         
         Usuario Usuario = new Usuario(email, senha, papel);
         dao.insert(Usuario);
+        Usuario = dao.getbyEmail(email);
         if(papel.equals("LOJA")) {
         	String descricao = request.getParameter("descricao");
         	String cnpj = request.getParameter("cnpj");
         	
-        	Loja loja = new Loja( nome, descricao, cnpj);
+        	Loja loja = new Loja(Usuario.getId(), nome, descricao, cnpj);
         	daoLoja.insert(loja);
         }
         else {
@@ -161,9 +163,9 @@ public class AdminController extends HttpServlet {
         		String cpf = request.getParameter("cpf");
         		String telefone = request.getParameter("telefone");
         		String sexo = request.getParameter("sexo");
-        		String dataNascimento = request.getParameter("dataNascimento");
+        		LocalDate dataNascimento = LocalDate.parse(request.getParameter("dataDeNascimento"));
       
-        		Cliente cliente = new Cliente( cpf, telefone, nome, sexo, dataNascimento);
+        		Cliente cliente = new Cliente(Usuario.getId(), cpf, telefone, nome, sexo, dataNascimento);
         		daoCliente.insert(cliente);
         	}
         }
@@ -182,7 +184,7 @@ public class AdminController extends HttpServlet {
     	
         Usuario Usuario = new Usuario(Usuario_id,  email, senha, papel);
         dao.update(Usuario);
-        if(papel == "LOJA") {
+        if(papel.equals("LOJA")) {
         	String descricao = request.getParameter("descricao");
         	String cnpj = request.getParameter("cnpj");
         	
@@ -190,11 +192,11 @@ public class AdminController extends HttpServlet {
         	daoLoja.update(loja);
         }
         else {
-        	if(papel == "CLIENTE"){
+        	if(papel.equals("CLIENTE")){
         		String cpf = request.getParameter("cpf");
         		String telefone = request.getParameter("telefone");
         		String sexo = request.getParameter("sexo");
-        		String dataNascimento = request.getParameter("dataNascimento");
+        		LocalDate dataNascimento = LocalDate.parse(request.getParameter("dataDeNascimento"));
         		
         		Cliente cliente = new Cliente(Usuario_id, cpf, telefone, nome, sexo, dataNascimento);
         		daoCliente.update(cliente);
@@ -210,11 +212,11 @@ public class AdminController extends HttpServlet {
         Usuario Usuario = new Usuario(Usuario_id);
         Usuario usuario = dao.getbyID(Usuario_id);
         
-        if (usuario.getPapel() == "LOJA" ) {
+        if (usuario.getPapel().equals("LOJA") ) {
         	Loja loja = daoLoja.get(Usuario_id);
         	daoLoja.delete(loja);
         }else {
-        	if(usuario.getPapel() == "CLIENTE"){
+        	if(usuario.getPapel().equals("CLIENTE")){
         		Cliente cliente = daoCliente.get(Usuario_id);
         		daoCliente.delete(cliente);
             	

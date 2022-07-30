@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +115,7 @@ private static final long serialVersionUID = 1L;
         Long proposta_id = Long.parseLong(request.getParameter("id"));
     	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	String dataAtual = request.getParameter("dataAtual");
+    	LocalDate dataAtual = LocalDate.parse(request.getParameter("dataAtual"));
     	String status = request.getParameter("status");
         
         Long id_cliente = Long.parseLong(request.getParameter("cliente"));
@@ -134,7 +135,7 @@ private static final long serialVersionUID = 1L;
     	Long proposta_id = Long.parseLong(request.getParameter("id"));
     	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	String dataAtual = request.getParameter("dataAtual");
+    	LocalDate dataAtual = LocalDate.parse(request.getParameter("dataAtual"));
     	String status = request.getParameter("status");
         
         Long id_cliente = Long.parseLong(request.getParameter("cliente"));

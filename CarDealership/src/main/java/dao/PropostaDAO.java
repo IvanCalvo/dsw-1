@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class PropostaDAO extends GenericDAO {
 
             statement.setFloat(1, proposta.getValor());
             statement.setString(2, proposta.getCondPagamento());
-            statement.setString(3, proposta.getDataAtual());
+            statement.setObject(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId_usuario());
             statement.setLong(6, proposta.getCarro().getId());
@@ -52,7 +53,7 @@ public class PropostaDAO extends GenericDAO {
                 Long id = resultSet.getLong("id");
                 Float valor = resultSet.getFloat("valor");
                 String condPagamento = resultSet.getString("condPagamento");
-                String dataAtual = resultSet.getString("dataAtual");
+                LocalDate dataAtual = LocalDate.parse(resultSet.getString("dataAtual"));
                 String status = resultSet.getString("statusCompra");
                 Long cliente_id = resultSet.getLong(6);
                 String email = resultSet.getString("email");
@@ -61,7 +62,7 @@ public class PropostaDAO extends GenericDAO {
                 String nome =  resultSet.getString("nome");
                 String telefone = resultSet.getString("telefone");
                 String sexo = resultSet.getString("sexo");
-                String dataDeNascimento = resultSet.getString("dataDeNascimento");
+                LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
                 Long carro_id = resultSet.getLong("carro_id");
                 
                 Carro carro =  new CarroDAO().get(carro_id);
@@ -106,7 +107,7 @@ public class PropostaDAO extends GenericDAO {
 
             statement.setFloat(1, proposta.getValor());
             statement.setString(2, proposta.getCondPagamento());
-            statement.setString(3, proposta.getDataAtual());
+            statement.setObject(3, proposta.getDataAtual());
             statement.setString(4, proposta.getStatus());
             statement.setLong(5, proposta.getCliente().getId_usuario());
             statement.setLong(6, proposta.getCarro().getId());
@@ -134,7 +135,7 @@ public class PropostaDAO extends GenericDAO {
             if (resultSet.next()) {
             	Float valor = resultSet.getFloat("valor");
                 String condPagamento = resultSet.getString("condPagamento");
-                String dataAtual = resultSet.getString("dataAtual");
+                LocalDate dataAtual = LocalDate.parse(resultSet.getString("dataAtual"));
                 String status = resultSet.getString("statusCompra");
 
                 Long clienteID = resultSet.getLong("cliente_id");

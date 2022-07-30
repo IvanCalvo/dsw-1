@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -91,7 +92,7 @@ private static final long serialVersionUID = 1L;
         String telefone = request.getParameter("telefone");
         String nome = request.getParameter("nome");
         String sexo = request.getParameter("sexo");
-        String dataDeNascimento = request.getParameter("dataDeNascimento");
+        LocalDate dataDeNascimento = LocalDate.parse(request.getParameter("dataDeNascimento"));
 
         
         Cliente cliente = new Cliente(cpf, telefone, nome, sexo, dataDeNascimento);
@@ -108,7 +109,7 @@ private static final long serialVersionUID = 1L;
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
-        String dataDeNascimento = request.getParameter("dataDeNascimento");
+        LocalDate dataDeNascimento = LocalDate.parse(request.getParameter("dataDeNascimento"));
         
         
         Cliente cliente = new Cliente(id, cpf, telefone, nome, sexo, dataDeNascimento);

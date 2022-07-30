@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import domain.Cliente;
 
@@ -22,7 +23,7 @@ public class ClienteDAO extends GenericDAO {
             statement.setString(3, cliente.getTelefone());
             statement.setString(4, cliente.getNome());
             statement.setString(5, cliente.getSexo());
-            statement.setString(6, cliente.getDataDeNascimento());
+            statement.setString(6, cliente.getDataDeNascimento().toString());
             
             System.out.println(cliente.getDataDeNascimento());
             
@@ -65,9 +66,12 @@ public class ClienteDAO extends GenericDAO {
             statement.setString(2, cliente.getTelefone());
             statement.setString(3, cliente.getNome());
             statement.setString(4, cliente.getSexo());
-            statement.setString(5, cliente.getDataDeNascimento());
+            statement.setString(5, cliente.getDataDeNascimento().toString());
             statement.setLong(6, cliente.getId_usuario());
             statement.executeUpdate();
+            
+            System.out.println(cliente.getDataDeNascimento());
+            System.out.println(cliente.getDataDeNascimento().toString());
 
             statement.close();
             conn.close();
@@ -92,7 +96,7 @@ public class ClienteDAO extends GenericDAO {
                 String telefone = resultSet.getString("telefone");
                 String nome = resultSet.getString("nome");
                 String sexo = resultSet.getString("sexo");
-                String dataDeNascimento = resultSet.getString("dataDeNascimento");
+                LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
 
                 cliente = new Cliente(id, cpf, telefone, nome, sexo, dataDeNascimento);
             }

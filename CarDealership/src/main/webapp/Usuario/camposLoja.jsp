@@ -34,8 +34,11 @@
 	</tr>
 	<tr>
 		<td><label for="papel">Papel</label></td>
-		<td><input type="text" value="LOJA" readonly id="papel" name="papel" size="20" required
-			value="${Usuario.papel}" /></td>
+		<td><select id="papel" name="papel">
+					<option value="LOJA" ${Usuario.papel == "LOJA" ? 'selected' : ''}>LOJA</option>
+					<option value="CLIENTE" ${Usuario.papel == "CLIENTE" ? 'selected' : ''}>CLIENTE</option>
+					<option value="ADMIN"  ${Usuario.papel == "ADMIN" ? 'selected' : ''}>ADMIN</option>
+		</select></td>
 	</tr>
 	<tr>
 		<td><label for="descricao">Descricao</label></td>

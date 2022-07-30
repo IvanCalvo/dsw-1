@@ -1,10 +1,12 @@
 package domain;
 
+import java.time.LocalDate;
+
 public class Proposta {
 	private Long id;
 	private Float valor;
 	private String condPagamento;
-	private String dataAtual;
+	private LocalDate dataAtual;
 	private String status;
 	private Cliente cliente;
 	private Carro carro;
@@ -15,7 +17,7 @@ public class Proposta {
 	}
 	
 	public Proposta ( Float valor, String condPagamento,
-			String dataAtual, String status, Cliente cliente, Carro carro) {
+			LocalDate dataAtual, String status, Cliente cliente, Carro carro) {
 		this.valor = valor;
 		this.condPagamento = condPagamento;
 		this.dataAtual = dataAtual;
@@ -25,7 +27,7 @@ public class Proposta {
 	}
 	
 	public Proposta ( Long id, Float valor, String condPagamento,
-			String dataAtual, String status, Cliente cliente, Carro carro) {
+			LocalDate dataAtual, String status, Cliente cliente, Carro carro) {
 		this(valor, condPagamento, dataAtual, status, cliente, carro);
 		this.id = id;
 	}
@@ -49,10 +51,10 @@ public class Proposta {
 	public void setCondPagamento(String condPagamento) {
 		this.condPagamento = condPagamento;
 	}
-	public String getDataAtual() {
+	public LocalDate getDataAtual() {
 		return dataAtual;
 	}
-	public void setDataAtual(String dataAtual) {
+	public void setDataAtual(LocalDate dataAtual) {
 		this.dataAtual = dataAtual;
 	}
 

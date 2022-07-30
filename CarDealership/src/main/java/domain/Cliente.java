@@ -1,19 +1,21 @@
 package domain;
 
+import java.time.LocalDate;
+
 public class Cliente {
 	private String nome;
 	private Long id_usuario;
 	private String cpf;
 	private String telefone;
 	private String sexo;
-	private String dataDeNascimento;
+	private LocalDate dataDeNascimento;
 	
 	public Cliente(Long id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 	
 	public Cliente(String cpf, String telefone, String nome, 
-			String sexo, String dataDeNascimento) {
+			String sexo, LocalDate dataDeNascimento) {
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.nome = nome;
@@ -22,7 +24,7 @@ public class Cliente {
 	}
 	
 	public Cliente(Long id_usuario, String cpf, String telefone, String nome,
-			String sexo, String dataDeNascimento) {
+			String sexo, LocalDate dataDeNascimento) {
 		this(cpf,  telefone, nome, sexo, dataDeNascimento);
 		this.id_usuario = id_usuario;
 	}
@@ -63,11 +65,11 @@ public class Cliente {
 		this.sexo = sexo;
 	}
 
-	public String getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 }

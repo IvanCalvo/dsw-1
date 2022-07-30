@@ -34,8 +34,8 @@
 	</tr>
 	<tr>
 		<td><label for="papel">Papel</label></td>
-		<td><input type="text" value="CLIENTE" readonly id="papel" name="papel" size="20" required
-			value="${Usuario.papel}" /></td>
+		<td><input type="text" id="papel" name="papel" size="20" required
+			value="CLIENTE" readonly></td>	
 	</tr>
 	<tr>
 		<td><label for="cpf">cpf</label></td>
@@ -53,8 +53,8 @@
 			value="${Cliente.sexo}" /></td>
 	</tr>
 	<tr>
-		<td><label for="dataNascimento">Data de Nascimento {yyyy-MM-dd}</label></td>
-		<td><input type="text" id="dataNascimento" name="dataNascimento"  required
+		<td><label for="dataDeNascimento">Data de Nascimento {yyyy-MM-dd}</label></td>
+		<td><input type="date" id="dataDeNascimento" name="dataDeNascimento"  required
 			value="${Cliente.dataDeNascimento}" /></td>
 	</tr>
 	<tr>
