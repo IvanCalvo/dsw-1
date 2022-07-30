@@ -94,6 +94,7 @@ public class LojaDAO extends GenericDAO{
             statement.setString(2, loja.getDescricao());
             statement.setString(3, loja.getCnpj());
             statement.setLong(4, loja.getId_usuario());
+            statement.executeUpdate();
 
             statement.close();
             conn.close();

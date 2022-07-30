@@ -57,6 +57,9 @@ public class AdminController extends HttpServlet {
 
             try {
                 switch (action) {
+                	case "/cadastro":
+                		apresentaFormCadastro(request, response);
+                		break;
                     case "/cadastroCliente":
                         apresentaFormCadastroCliente(request, response);
                         break;
@@ -104,6 +107,12 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formulario.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     private void apresentaFormCadastroCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioCliente.jsp");
@@ -122,7 +131,7 @@ public class AdminController extends HttpServlet {
         Usuario usuario = dao.getbyID(id);
         request.setAttribute("Usuario", usuario);
         
-        if (usuario.getPapel().equals("LOJA") ) {
+        if (usuario.getPapel().equals("LOJA")) {
         	Loja loja = daoLoja.get(id);
         	request.setAttribute("Loja", loja);
         	RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioLoja.jsp");
@@ -133,10 +142,11 @@ public class AdminController extends HttpServlet {
             	request.setAttribute("Cliente", cliente);
             	RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioCliente.jsp");
                 dispatcher.forward(request, response);
+        	}else {
+        		RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formulario.jsp");
+                dispatcher.forward(request, response);
         	}
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formulario.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response)

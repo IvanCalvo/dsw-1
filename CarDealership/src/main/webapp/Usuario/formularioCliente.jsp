@@ -12,7 +12,7 @@
 	<div align="center">
 		<h1>Gerenciamento de Clientes</h1>
 		<h2>
-			<a href="lista">Lista de Clientes</a>
+			<a href="lista">Lista de Usuários</a>
 		</h2>
 	</div>
 	<div align="center">
