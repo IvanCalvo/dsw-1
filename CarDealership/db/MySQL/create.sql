@@ -14,9 +14,9 @@ create table Usuario(
 
 create table Cliente(
 	id bigint not null auto_increment,
-	cpf integer not null unique,
+	cpf varchar(14) not null unique,
 	nome varchar(50) not null, 
-	telefone integer not null, 
+	telefone varchar(11) not null, 
 	sexo char, 
 	dataDeNascimento date not null, 
 	primary key (id),
@@ -26,8 +26,8 @@ create table Cliente(
 create table lojas (
 	id bigint not null auto_increment,
 	nome varchar(50) not null,
-	descricao varchar(60) not null,
-	cnpj int(14) not null unique,
+	descricao varchar(120) not null,
+	cnpj varchar(14) not null unique,
 	primary key(id),
 	foreign key (id) references Usuario(id)
 );
