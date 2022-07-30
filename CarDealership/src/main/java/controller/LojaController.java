@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.LojaDAO;
+import dao.UsuarioDAO;
 import domain.Loja;
+import domain.Usuario;
 
 @WebServlet(urlPatterns = "/loja/*")
 
@@ -21,10 +23,12 @@ public class LojaController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
     private LojaDAO dao;
+    private UsuarioDAO daoUsuario;
 
     @Override
     public void init() {
         dao = new LojaDAO();
+        daoUsuario = new UsuarioDAO();
     }
 
     @Override
@@ -79,7 +83,7 @@ private static final long serialVersionUID = 1L;
     private Map<Long, String> getLojas() {
         Map <Long,String> lojas = new HashMap<>();
         for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId(), loja.getNome());
+            lojas.put(loja.getId_usuario(), loja.getNome());
         }
         return lojas;
     }
@@ -95,8 +99,9 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         Long id = (long) Integer.parseInt(request.getParameter("id"));
         Loja loja = dao.get(id);
-        request.setAttribute("loja", loja);
-        request.setAttribute("lojas", getLojas());
+        Usuario usuario = daoUsuario.getbyID(id);
+        request.setAttribute("Loja", loja);
+        request.setAttribute("Usuario", usuario);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -105,15 +110,12 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        String email = request.getParameter("email");
+        Long id = Long.parseLong(request.getParameter("id"));
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
-        Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
+        String cnpj = request.getParameter("cnpj");
         
-        Long id_loja = Long.parseLong(request.getParameter("loja"));
-        Loja loja = new LojaDAO().get(id_loja);
-        
-        loja = new Loja(email, nome, descricao, cnpj);
+        Loja loja = new Loja(id, nome, descricao, cnpj);
         dao.insert(loja);
         response.sendRedirect("lista");
     }
@@ -125,21 +127,20 @@ private static final long serialVersionUID = 1L;
     	//Falta a senha, talvez falte um atributo do tipo Usuário na classe Loja
     	Long id = Long.parseLong(request.getParameter("id"));
     	String nome = request.getParameter("nome");
-        String email = request.getParameter("email");
         String descricao = request.getParameter("descricao");
-        Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
+        String cnpj = request.getParameter("cnpj");
        
         //Loja loja = new LojaDAO().get(id);
-        Loja loja = new Loja(id, nome, email, descricao, cnpj);
+        Loja loja = new Loja(id, nome, descricao, cnpj);
         dao.update(loja);
         response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        Long id_loja = Long.parseLong(request.getParameter("id"));
+        Long id_usuario = Long.parseLong(request.getParameter("id"));
 
-        Loja loja = new Loja(id_loja);
+        Loja loja = new Loja(id_usuario);
         dao.delete(loja);
         response.sendRedirect("lista");
     }

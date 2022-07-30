@@ -11,19 +11,17 @@ public class ClienteDAO extends GenericDAO {
 
     public void insert(Cliente cliente) {
 
-        String sql = "INSERT INTO Cliente (email, senha, cpf, nome, telefone, sexo, dataDeNascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente (cpf, telefone, nome, sexo, dataDeNascimento) VALUES ( ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, cliente.getEmail());
-            statement.setString(2, cliente.getSenha());
-            statement.setInt(3, cliente.getCpf());
-            statement.setString(4, cliente.getNome());
-            statement.setInt(5, cliente.getTelefone());
-            statement.setString(6, cliente.getSexo());
-            statement.setInt(7, cliente.getDataDeNascimento());
+            statement.setString(1, cliente.getCpf());
+            statement.setString(2, cliente.getTelefone());
+            statement.setString(3, cliente.getNome());
+            statement.setString(4, cliente.getSexo());
+            statement.setString(5, cliente.getDataDeNascimento());
             statement.executeUpdate();
 
             statement.close();
@@ -41,7 +39,7 @@ public class ClienteDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setLong(1, cliente.getId());
+            statement.setLong(1, cliente.getId_usuario());
             statement.executeUpdate();
 
             statement.close();
@@ -52,21 +50,19 @@ public class ClienteDAO extends GenericDAO {
     }
 
     public void update(Cliente cliente) {
-        String sql = "UPDATE Cliente SET email = ?, senha = ?, cpf = ?, nome = ?, telefone = ?, sexo = ?, dataDeNascimento = ?";
+        String sql = "UPDATE Cliente SET cpf = ?, telefone = ?, nome = ?, sexo = ?, dataDeNascimento = ?";
         sql += "WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setString(1, cliente.getEmail());
-            statement.setString(2, cliente.getSenha());
-            statement.setInt(3, cliente.getCpf());
-            statement.setString(4, cliente.getNome());
-            statement.setInt(5, cliente.getTelefone());
-            statement.setString(6, cliente.getSexo());
-            statement.setInt(7, cliente.getDataDeNascimento());
-            statement.setLong(8, cliente.getId());
+            
+            statement.setString(1, cliente.getCpf());
+            statement.setString(2, cliente.getTelefone());
+            statement.setString(3, cliente.getNome());
+            statement.setString(4, cliente.getSexo());
+            statement.setString(5, cliente.getDataDeNascimento());
+            statement.setLong(6, cliente.getId_usuario());
             statement.executeUpdate();
 
             statement.close();
@@ -88,15 +84,13 @@ public class ClienteDAO extends GenericDAO {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
                 int cpf = resultSet.getInt("cpf");
-                String nome = resultSet.getString("nome");
                 int telefone = resultSet.getInt("telefone");
+                String nome = resultSet.getString("nome");
                 String sexo = resultSet.getString("sexo");
                 int dataDeNascimento = resultSet.getInt("dataDeNascimento");
 
-                cliente = new Cliente(id, email, senha, cpf, nome, telefone, sexo, dataDeNascimento);
+                cliente = new Cliente(id, cpf, telefone, nome, sexo, dataDeNascimento);
             }
 
             resultSet.close();

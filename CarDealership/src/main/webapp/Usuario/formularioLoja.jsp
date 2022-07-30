@@ -10,21 +10,21 @@
 
 <body>
 	<div align="center">
-		<h1>Gerenciamento de Usuários</h1>
+		<h1>Gerenciamento de Lojas</h1>
 		<h2>
-			<a href="lista">Lista de Usuários</a>
+			<a href="lista">Lista de Lojas</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:choose>
 			<c:when test="${Usuario != null}">
 				<form action="atualizacao" method="post">
-					<%@include file="campos.jsp"%>
+					<%@include file="camposLoja.jsp"%>
 				</form>
 			</c:when>
 			<c:otherwise>
 				<form action="insercao" method="post">
-					<%@include file="campos.jsp"%>
+					<%@include file="camposLoja.jsp"%>
 				</form>
 			</c:otherwise>
 		</c:choose>

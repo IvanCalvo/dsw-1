@@ -1,40 +1,25 @@
 package domain;
 
 public class Loja {
-	private Long id;
+	private Long id_usuario;
 	private String nome;
-	private String email;
 	private String descricao;
-	private Integer cnpj;
+	private String cnpj;
 	
-	public Loja(Long id) {
-		this.id = id;
+	
+	public Loja(Long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	
-	public Loja(String nome, String email, String descricao, Integer cnpj) {
+	public Loja(Long id_usuario, String nome, String descricao, String cnpj) {
 		this.nome = nome;
-		this.email = email;
+		this.id_usuario = id_usuario;
 		this.descricao = descricao;
 		this.cnpj = cnpj;
 	}
-	
-	public Loja(Long id, String nome, String descricao, Integer cnpj) {
-		this.nome = nome;
-		this.descricao = descricao;
-		this.cnpj = cnpj;
-	}
-	
-	public Loja(Long id, String nome, String email, String descricao, Integer cnpj) {
-		this(nome, email, descricao, cnpj);
-		this.id = id;
-	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Long getId_usuario() {
+		return id_usuario;
 	}
 
 	public String getNome() {
@@ -45,14 +30,6 @@ public class Loja {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -61,13 +38,12 @@ public class Loja {
 		this.descricao = descricao;
 	}
 
-	public Integer getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	
 	
 }

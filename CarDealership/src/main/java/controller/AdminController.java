@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import dao.LojaDAO;
+import dao.ClienteDAO;
 import dao.UsuarioDAO;
 import domain.Usuario;
+import domain.Cliente;
+import domain.Loja;
 import util.Erro;
 
 @WebServlet(urlPatterns = "/admin/*")
@@ -22,10 +25,14 @@ public class AdminController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private UsuarioDAO dao;
+    private LojaDAO daoLoja;
+    private ClienteDAO daoCliente;
 
     @Override
     public void init() {
         dao = new UsuarioDAO();
+        daoLoja = new LojaDAO();
+        daoCliente = new ClienteDAO();
     }
 
     @Override
@@ -49,8 +56,11 @@ public class AdminController extends HttpServlet {
 
             try {
                 switch (action) {
-                    case "/cadastro":
-                        apresentaFormCadastro(request, response);
+                    case "/cadastroCliente":
+                        apresentaFormCadastroCliente(request, response);
+                        break;
+                    case "/cadastroLoja":
+                        apresentaFormCadastroLoja(request, response);
                         break;
                     case "/insercao":
                         insere(request, response);
@@ -93,9 +103,15 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
-    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
+    private void apresentaFormCadastroCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioCliente.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void apresentaFormCadastroLoja(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Usuario/formularioLoja.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -111,13 +127,13 @@ public class AdminController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        
         String nome = request.getParameter("nome");
     	String email = request.getParameter("email");
     	String senha = request.getParameter("senha");
     	String papel = request.getParameter("papel");
         
-        Usuario Usuario = new Usuario(nome, email, senha, papel);
+        Usuario Usuario = new Usuario(email, senha, papel);
         dao.insert(Usuario);
         response.sendRedirect("lista");
     }
@@ -127,13 +143,31 @@ public class AdminController extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	
     	Long Usuario_id = Long.parseLong(request.getParameter("id"));
-    	String nome = request.getParameter("nome");
     	String email = request.getParameter("email");
     	String senha = request.getParameter("senha");
     	String papel = request.getParameter("papel");
+    	String nome = request.getParameter("nome");
     	
-        Usuario Usuario = new Usuario(Usuario_id, nome, email, senha, papel);
+        Usuario Usuario = new Usuario(Usuario_id,  email, senha, papel);
         dao.update(Usuario);
+        if(papel == "LOJA") {
+        	String descricao = request.getParameter("descricao");
+        	Integer cnpj = Integer.parseInt(request.getParameter("cnpj"));
+        	
+        	Loja loja = new Loja(Usuario_id, nome, descricao, cnpj);
+        	daoLoja.update(loja);
+        }
+        else {
+        	if(papel == "CLIENTE"){
+        		Integer cpf = Integer.parseInt(request.getParameter("cpf"));
+        		Integer telefone = Integer.parseInt(request.getParameter("telefone"));
+        		String sexo = request.getParameter("sexo");
+        		Integer dataNascimento = Integer.parseInt(request.getParameter("dataNascimento"));
+        		
+        		Cliente cliente = new Cliente(Usuario_id, cpf, telefone, nome, sexo, dataNascimento);
+        		daoCliente.update(cliente);
+        	}
+        }
         response.sendRedirect("lista");
     }
 
