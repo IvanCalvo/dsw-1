@@ -42,7 +42,7 @@ public class CarroDAO extends GenericDAO{
 		
 		List<Carro> listaCarros = new ArrayList<>();
 		
-		String sql = "SELECT * from carro c Left Join lojas l on c.id_loja = l.id LEFT JOIN Proposta p ON c.id = p.carro_id where p.statusCompra != 'ACEITO' order by c.id_loja";
+		String sql = "SELECT c.ID, cnpj_loja, placa, modelo, chassi, ano, quilometragem, c.descricao, c.valor, fotos, id_loja, nome, l.descricao from carro c Left Join lojas l on c.id_loja = l.id LEFT JOIN Proposta p ON c.id = p.carro_id WHERE p.statusCompra IS NULL OR p.statusCompra!= \"ACEITO\" GROUP BY c.ID ORDER BY c.id";
 					
 		try {
 			Connection conn = this.getConnection();
