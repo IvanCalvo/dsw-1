@@ -77,6 +77,45 @@ public class CarroDAO extends GenericDAO{
         }
 		return listaCarros;
 	}
+
+public List<Carro> newgetAll(){
+		
+		List<Carro> listaCarros = new ArrayList<>();
+		
+		String sql = "SELECT * from carro c inner join Proposta p ON p.carro_id = c.id WHERE p.statusCompra != 'ACEITO';";
+					
+		try {
+			Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+            
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+            	Long id = resultSet.getLong("id");
+            	//String cnpj_loja = resultSet.getString("cnpj_loja");
+            	String placa = resultSet.getString("placa");
+            	String modelo = resultSet.getString("modelo");
+            	String chassi = resultSet.getString("chassi");
+            	int ano = resultSet.getInt("ano");
+            	int quilometragem = resultSet.getInt("quilometragem");
+            	String descricao = resultSet.getString("descricao");
+            	float valor = resultSet.getFloat("valor");
+            	String fotos = resultSet.getString("fotos");
+       
+            	
+            	Long id_loja = resultSet.getLong("id_loja");
+            	
+            	Loja loja = new Loja(id_loja);
+            	Carro carroo = new Carro(id, loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
+            	listaCarros.add(carroo);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+		} catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+		return listaCarros;
+	}
 	
 	public List<Carro> getAll(Long identificador){
 			

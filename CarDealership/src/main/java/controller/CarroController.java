@@ -65,6 +65,9 @@ private static final long serialVersionUID = 1L;
                 case "/lista":
                     lista(request, response);
                     break;
+                case "/newlista":
+                    newlista(request, response);
+                    break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
             throw new ServletException(e);
@@ -74,6 +77,14 @@ private static final long serialVersionUID = 1L;
     private void lista(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Carro> listaCarros = dao.getAll();
+        request.setAttribute("listaCarros", listaCarros);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/lista.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void newlista(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Carro> listaCarros = dao.newgetAll();
         request.setAttribute("listaCarros", listaCarros);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/lista.jsp");
         dispatcher.forward(request, response);
