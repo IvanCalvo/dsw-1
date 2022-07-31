@@ -18,6 +18,7 @@ import domain.Carro;
 import domain.Cliente;
 import domain.Proposta;
 import domain.Usuario;
+import util.Erro;
 
 @WebServlet(urlPatterns = "/propostas/*")
 
@@ -96,6 +97,13 @@ private static final long serialVersionUID = 1L;
     	
     	Proposta proposta = new Proposta(cliente, carro);
     	
+    	if(!dao.checkProposta(proposta)) {
+        	Erro erros = new Erro();
+        	erros.add("Você já tem uma proposta pendente para este carro!");
+
+    		request.setAttribute("mensagens", erros);
+        }
+    	
     	request.setAttribute("proposta", proposta);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
         dispatcher.forward(request, response);
@@ -124,6 +132,7 @@ private static final long serialVersionUID = 1L;
         Long id_carro = Long.parseLong(request.getParameter("idCarro"));
         Carro carro = new CarroDAO().get(id_carro);
         Proposta proposta = new Proposta(valor, modelo, dataAtual, cliente, carro);
+        
         dao.insert(proposta);
         response.sendRedirect("lista");
     }

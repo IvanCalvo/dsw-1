@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Proposta;
+import util.Erro;
 import domain.Cliente;
 import domain.Carro;
 
@@ -18,24 +19,39 @@ public class PropostaDAO extends GenericDAO {
     public void insert(Proposta proposta) {
 
         String sql = "INSERT INTO Proposta ( valor, condPagamento, dataAtual, statusCompra, cliente_id, carro_id) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setFloat(1, proposta.getValor());
-            statement.setString(2, proposta.getCondPagamento());
-            statement.setObject(3, proposta.getdataProposta());
-            statement.setString(4, proposta.getStatus());
-            statement.setLong(5, proposta.getCliente().getId_usuario());
-            statement.setLong(6, proposta.getCarro().getId());
-            statement.executeUpdate();
-
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        
+        if(checkProposta(proposta)) {
+	        try {
+	            Connection conn = this.getConnection();
+	            PreparedStatement statement = conn.prepareStatement(sql);
+	
+	            statement.setFloat(1, proposta.getValor());
+	            statement.setString(2, proposta.getCondPagamento());
+	            statement.setObject(3, proposta.getdataProposta());
+	            statement.setString(4, proposta.getStatus());
+	            statement.setLong(5, proposta.getCliente().getId_usuario());
+	            statement.setLong(6, proposta.getCarro().getId());
+	            statement.executeUpdate();
+	
+	            statement.close();
+	            conn.close();
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
         }
+    }
+    
+    public Boolean checkProposta(Proposta proposta){
+    	
+    	Boolean resultado = true;
+    	
+    	List<Proposta> listaProposta = getbyID_usuario(proposta.getCliente().getId_usuario());
+    	for(int i=0; i < listaProposta.size(); i++) {
+    		if(listaProposta.get(i).getCarro().getId().equals(proposta.getCarro().getId())){
+    			resultado = false;
+    		}
+    	}
+    	return resultado;
     }
 
     public List<Proposta> getAll() {

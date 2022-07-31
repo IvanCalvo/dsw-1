@@ -30,6 +30,15 @@
 	}
 </script>
 <body>
+	<c:if test="${mensagens.existeErros}">
+	    <div id="erro">
+	        <ul>
+           		<c:forEach var="erro" items="${mensagens.erros}">
+               		<li> ${erro} </li>
+              	</c:forEach>
+	        </ul>	
+	    </div>
+    </c:if>
 	<%
 		String contextPath = request.getContextPath().replace("/", "");
 	%>
