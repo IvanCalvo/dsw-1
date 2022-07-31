@@ -54,6 +54,7 @@
 				<th>Quilometragem</th>
 				<th>Descrição</th>
 				<th>Valor</th>
+				<th>Ação</th>
 			</tr>
 			<c:forEach var="carro" items="${requestScope.listaCarros}">
 				<tr>
@@ -65,6 +66,7 @@
 					<td>${carro.quilometragem}</td>
 					<td>${carro.descricao}</td>
 					<td>${carro.valor}</td>
+					<td><a href="/<%= contextPath%>/loja/listaProposta?id=${carro.id}">Propostas</a></td>
 				</tr>
 			</c:forEach>
 		</table>
