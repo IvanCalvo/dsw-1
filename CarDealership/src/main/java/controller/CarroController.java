@@ -16,6 +16,7 @@ import dao.CarroDAO;
 import dao.LojaDAO;
 import domain.Carro;
 import domain.Loja;
+import domain.Usuario;
 
 @WebServlet(urlPatterns = "/carro/*")
 
@@ -89,6 +90,8 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("lojas", getLojas());
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        request.setAttribute("Usuario", usuario);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -121,7 +124,9 @@ private static final long serialVersionUID = 1L;
         
         Carro carro = new Carro(loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
         dao.insert(carro);
-        response.sendRedirect("lista");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/lista");
+        dispatcher.forward(request, response);
+
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
@@ -143,15 +148,17 @@ private static final long serialVersionUID = 1L;
         
         Carro carro = new Carro(id_carro,loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos);
         dao.update(carro);
-        response.sendRedirect("lista");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/lista");
+        dispatcher.forward(request, response);
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws ServletException, IOException {
         Long id_carro = Long.parseLong(request.getParameter("id"));
 
         Carro carro = new Carro(id_carro);
         dao.delete(carro);
-        response.sendRedirect("lista");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/loja/lista");
+        dispatcher.forward(request, response);
     }
 }

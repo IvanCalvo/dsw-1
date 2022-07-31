@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CarroDAO;
+import domain.Carro;
 import dao.LojaDAO;
 import dao.UsuarioDAO;
 import domain.Loja;
 import domain.Usuario;
+import util.Erro;
 
 @WebServlet(urlPatterns = "/loja/*")
 
@@ -23,12 +26,14 @@ public class LojaController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
     private LojaDAO dao;
+    private CarroDAO daoCarro;
     private UsuarioDAO daoUsuario;
 
     @Override
     public void init() {
         dao = new LojaDAO();
         daoUsuario = new UsuarioDAO();
+        daoCarro = new CarroDAO();
     }
 
     @Override
@@ -40,43 +45,60 @@ private static final long serialVersionUID = 1L;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-                
-        String action = request.getPathInfo();
-        if (action == null) {
-            action = "";
-        }
-
-        try {
-            switch (action) {
-                case "/cadastro":
-                    apresentaFormCadastro(request, response);
-                    break;
-                case "/insercao":
-                    insere(request, response);
-                    break;
-                case "/remocao":
-                    remove(request, response);
-                    break;
-                case "/edicao":
-                    apresentaFormEdicao(request, response);
-                    break;
-                case "/atualizacao":
-                    atualize(request, response);
-                    break;
-                case "/lista":
-                    lista(request, response);
-                    break;
+    	
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    	Erro erros = new Erro();
+    	
+    	if (usuario == null) {
+    		//response.sendRedirect(request.getContextPath());
+    	} else if (usuario.getPapel().equals("LOJA")) {
+    		String action = request.getPathInfo();
+            if (action == null) {
+                action = "";
             }
-        } catch (RuntimeException | IOException | ServletException e) {
-            throw new ServletException(e);
-        }
+	        try {
+	            switch (action) {
+	                case "/cadastro":
+	                    apresentaFormCadastro(request, response);
+	                    break;
+	                case "/insercao":
+	                    insere(request, response);
+	                    break;
+	                case "/remocao":
+	                    remove(request, response);
+	                    break;
+	                case "/edicao":
+	                    apresentaFormEdicao(request, response);
+	                    break;
+	                case "/atualizacao":
+	                    atualize(request, response);
+	                    break;
+	                case "/lista":
+	                    lista(request, response);
+	                    break;
+	                default:
+	                	RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/index.jsp");
+	                    dispatcher.forward(request, response);
+	                    break;
+	            }
+	        } catch (RuntimeException | IOException | ServletException e) {
+	            throw new ServletException(e);
+	        }
+		} else {
+			erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [LOJA] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			//rd.forward(request, response);
+		}
     }
 
     private void lista(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Loja> listaLojas = dao.getAll();
-        request.setAttribute("listaLojas", listaLojas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/lista.jsp");
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        List<Carro> listaCarros = daoCarro.getAll(usuario.getId());
+        request.setAttribute("listaCarros", listaCarros);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/listaCarroLoja.jsp");
         dispatcher.forward(request, response);
     }
 

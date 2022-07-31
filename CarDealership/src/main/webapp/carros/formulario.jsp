@@ -12,7 +12,7 @@
 	<div align="center">
 		<h1>Gerenciamento de Carros</h1>
 		<h2>
-			<a href="lista">Lista de Carros</a>
+			<a href="${pageContext.request.contextPath}/loja/lista">Lista de Carros</a>
 		</h2>
 	</div>
 	<div align="center">
