@@ -2,9 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CarroDAO;
 import dao.PropostaDAO;
 import dao.ClienteDAO;
-import dao.LojaDAO;
 import domain.Carro;
-import domain.Loja;
 import domain.Cliente;
 import domain.Proposta;
+import domain.Usuario;
+import util.Erro;
 
 @WebServlet(urlPatterns = "/propostas/*")
 
@@ -28,10 +26,14 @@ public class PropostaController extends HttpServlet {
 private static final long serialVersionUID = 1L;
     
     private PropostaDAO dao;
+    private CarroDAO daoCarro;
+    private ClienteDAO daoCliente;
 
     @Override
     public void init() {
         dao = new PropostaDAO();
+        daoCarro = new CarroDAO();
+        daoCliente = new ClienteDAO();
     }
 
     @Override
@@ -77,23 +79,32 @@ private static final long serialVersionUID = 1L;
 
     private void lista(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Proposta> listaProposta = dao.getAll();
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    	
+        List<Proposta> listaProposta = dao.getbyID_usuario(usuario.getId());
         request.setAttribute("listaProposta", listaProposta);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
         dispatcher.forward(request, response);
     }
-
-    private Map<Long, String> getLojas() {
-        Map <Long,String> lojas = new HashMap<>();
-        for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId_usuario(), loja.getNome());
-        }
-        return lojas;
-    }
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("lojas", getLojas());
+    	Long id_carro = Long.parseLong(request.getParameter("id"));
+    	Carro carro = daoCarro.get(id_carro);
+    	
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    	Cliente cliente = daoCliente.get(usuario.getId());
+    	
+    	Proposta proposta = new Proposta(cliente, carro);
+    	
+    	if(!dao.checkProposta(proposta)) {
+        	Erro erros = new Erro();
+        	erros.add("Você já tem uma proposta pendente para este carro!");
+
+    		request.setAttribute("mensagens", erros);
+        }
+    	
+    	request.setAttribute("proposta", proposta);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -103,7 +114,6 @@ private static final long serialVersionUID = 1L;
         Long id = Long.parseLong(request.getParameter("id"));
         Proposta proposta = dao.get(id);
         request.setAttribute("proposta", proposta);
-        request.setAttribute("lojas", getLojas());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -112,18 +122,17 @@ private static final long serialVersionUID = 1L;
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        Long proposta_id = Long.parseLong(request.getParameter("id"));
     	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	LocalDate dataAtual = LocalDate.parse(request.getParameter("dataAtual"));
-    	String status = request.getParameter("status");
+    	LocalDate dataAtual = LocalDate.now();
         
-        Long id_cliente = Long.parseLong(request.getParameter("cliente"));
+        Long id_cliente = Long.parseLong(request.getParameter("idCliente"));
         Cliente cliente = new ClienteDAO().get(id_cliente);
         
-        Long id_carro = Long.parseLong(request.getParameter("cliente"));
+        Long id_carro = Long.parseLong(request.getParameter("idCarro"));
         Carro carro = new CarroDAO().get(id_carro);
-        Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
+        Proposta proposta = new Proposta(valor, modelo, dataAtual, cliente, carro);
+        
         dao.insert(proposta);
         response.sendRedirect("lista");
     }
@@ -154,6 +163,6 @@ private static final long serialVersionUID = 1L;
 
         Proposta proposta = new Proposta(proposta_id);
         dao.delete(proposta);
-        response.sendRedirect("listaProposta");
+        response.sendRedirect("lista");
     }
 }
