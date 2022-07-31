@@ -28,7 +28,7 @@
 				<th>Status</th>
 				<th>Data de Proposta</th>
 			</tr>
-			<c:forEach var="listaPropostas" items="${requestScope.listaProposta}">
+			<c:forEach var="Proposta" items="${requestScope.listaPropostas}">
 				<tr>
 					<td>${Proposta.id}</td>
 					<td>${Proposta.carro.modelo}</td>

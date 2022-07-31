@@ -58,13 +58,14 @@ public class PropostaDAO extends GenericDAO {
 
         List<Proposta> listaProposta = new ArrayList<>();
 
-        String sql = "SELECT * from Proposta p, Cliente c where p.CLIENTE_ID = c.ID order by p.id";
+        String sql = "SELECT * from Proposta p LEFT JOIN Cliente c ON p.CLIENTE_ID = c.ID where carro_id = ? order by p.id";
 
         try {
             Connection conn = this.getConnection();
-            Statement statement = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement(sql);
 
-            ResultSet resultSet = statement.executeQuery(sql);
+            statement.setLong(1, identificador);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 Float valor = resultSet.getFloat("valor");
@@ -82,12 +83,10 @@ public class PropostaDAO extends GenericDAO {
                 Carro carro =  new CarroDAO().get(carro_id);
                 Cliente cliente = new Cliente(cliente_id, cpf, nome, telefone, sexo, dataDeNascimento);
               
-                Proposta proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente, carro);
-            	if( identificador == carro_id) {
-            		listaProposta.add(proposta);
-            	}
-
+                Proposta proposta = new Proposta(id, valor, condPagamento, dataProposta, status, cliente, carro);
+            	listaProposta.add(proposta);
             }
+            
             resultSet.close();
             statement.close();
             conn.close();
@@ -97,39 +96,38 @@ public class PropostaDAO extends GenericDAO {
         return listaProposta;
     }
             
-            public List<Proposta> getAll() {
+    public List<Proposta> getAll() {
 
-                List<Proposta> listaProposta = new ArrayList<>();
+        List<Proposta> listaProposta = new ArrayList<>();
 
-                String sql = "SELECT * from Proposta p, Cliente c where p.CLIENTE_ID = c.ID order by p.id";
+        String sql = "SELECT * from Proposta p, Cliente c where p.CLIENTE_ID = c.ID order by p.id";
 
-                try {
-                    Connection conn = this.getConnection();
-                    Statement statement = conn.createStatement();
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
 
-                    ResultSet resultSet = statement.executeQuery(sql);
-                    while (resultSet.next()) {
-                        Long id = resultSet.getLong("id");
-                        Float valor = resultSet.getFloat("valor");
-                        String condPagamento = resultSet.getString("condPagamento");
-                        LocalDate dataAtual = LocalDate.parse(resultSet.getString("dataAtual"));
-                        String status = resultSet.getString("statusCompra");
-                        Long cliente_id = resultSet.getLong(6);
-                        String email = resultSet.getString("email");
-                        String senha = resultSet.getString("senha");
-                        String cpf = resultSet.getString("cpf");
-                        String nome =  resultSet.getString("nome");
-                        String telefone = resultSet.getString("telefone");
-                        String sexo = resultSet.getString("sexo");
-                        LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
-                        Long carro_id = resultSet.getLong("carro_id");
-                        
-                        Carro carro =  new CarroDAO().get(carro_id);
-                        Cliente cliente = new Cliente(cliente_id, cpf, nome, telefone, sexo, dataDeNascimento);
-                        Proposta proposta = new Proposta(id, valor, condPagamento, dataAtual, status, cliente, carro);        
-                    	listaProposta.add(proposta);
-                    }
-
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                Float valor = resultSet.getFloat("valor");
+                String condPagamento = resultSet.getString("condPagamento");
+                LocalDate dataProposta = LocalDate.parse(resultSet.getString("dataAtual"));
+                String status = resultSet.getString("statusCompra");
+                Long cliente_id = resultSet.getLong(6);
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String cpf = resultSet.getString("cpf");
+                String nome =  resultSet.getString("nome");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
+                Long carro_id = resultSet.getLong("carro_id");
+                
+                Carro carro =  new CarroDAO().get(carro_id);
+                Cliente cliente = new Cliente(cliente_id, cpf, nome, telefone, sexo, dataDeNascimento);
+                Proposta proposta = new Proposta(id, valor, condPagamento, dataProposta, status, cliente, carro);        
+            	listaProposta.add(proposta);
+            }
 
             resultSet.close();
             statement.close();
