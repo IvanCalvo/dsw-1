@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>CarDealership</title>
+<title>Gerenciamento de Carros da ${sessionScope.usuarioLogado.email}</title>
 </head>
 <script>
 	function filterFunction() {
@@ -30,22 +30,14 @@
 	}
 </script>
 <body>
-	<c:if test="${mensagens.existeErros}">
-	    <div id="erro">
-	        <ul>
-           		<c:forEach var="erro" items="${mensagens.erros}">
-               		<li> ${erro} </li>
-              	</c:forEach>
-	        </ul>	
-	    </div>
-    </c:if>
 	<%
 		String contextPath = request.getContextPath().replace("/", "");
 	%>
 	<div align="center">
-		<h1>Gerenciamento de Carros</h1>
+		<h1>Gerenciamento de Carros da ${sessionScope.usuarioLogado.email}</h1>
 		<h2>
-			<a href="/<%=contextPath%>">Menu Principal</a>
+			<a href="${pageContext.request.contextPath}/loja">Menu Loja</a>
+			<a href="${pageContext.request.contextPath}/carro/cadastro">Adicione Novo Carro</a>
 		</h2>
 	</div>
 
@@ -62,11 +54,7 @@
 				<th>Quilometragem</th>
 				<th>Descrição</th>
 				<th>Valor</th>
-				<c:choose>
-					<c:when test="${Usuario != null}">
-						<th>Ações</th>
-					</c:when>
-				</c:choose>
+				<th>Ação</th>
 			</tr>
 			<c:forEach var="carro" items="${requestScope.listaCarros}">
 				<tr>
@@ -78,13 +66,7 @@
 					<td>${carro.quilometragem}</td>
 					<td>${carro.descricao}</td>
 					<td>${carro.valor}</td>
-					<td>
-						<c:if test="${Usuario != null }">
-							<c:if test="${Usuario.papel == 'CLIENTE'}">
-								<a href="/<%=contextPath%>/propostas/cadastro?id=${carro.id}">Fazer Proposta</a>
-							</c:if>
-						</c:if>
-					</td>
+					<td><a href="/<%= contextPath%>/loja/listaProposta?id=${carro.id}">Propostas</a></td>
 				</tr>
 			</c:forEach>
 		</table>

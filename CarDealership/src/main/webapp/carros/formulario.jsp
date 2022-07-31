@@ -5,19 +5,19 @@
 <html>
 
 <head>
-<title>CarDEalerShip Propostas</title>
+<title>CarDealership</title>
 </head>
 
 <body>
 	<div align="center">
-		<h1>Gerenciamento de propostas</h1>
+		<h1>Gerenciamento de Carros</h1>
 		<h2>
-			<a href="lista">Lista de propostas</a>
+			<a href="${pageContext.request.contextPath}/loja/lista">Lista de Carros</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:choose>
-			<c:when test="${proposta != null}">
+			<c:when test="${carro != null}">
 				<form action="atualizacao" method="post">
 					<%@include file="campos.jsp"%>
 				</form>
