@@ -157,7 +157,7 @@ public class PropostaDAO extends GenericDAO {
 
         List<Proposta> listaProposta = new ArrayList<>();
 
-        String sql = "SELECT * from Proposta p, Cliente c where p.CLIENTE_ID = ? order by p.id";
+        String sql = "SELECT * from Proposta p INNER JOIN Cliente c ON p.CLIENTE_ID = c.id where p.CLIENTE_ID = ? order by p.id";
 
         try {
             Connection conn = this.getConnection();
