@@ -111,37 +111,24 @@ private static final long serialVersionUID = 1L;
     
     private void listaProposta(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    	request.setAttribute("Usuario", usuario);
+    	
     	Long id = Long.parseLong(request.getParameter("id"));
         List<Proposta> listaPropostas = daoProposta.getAll(id);
-        request.setAttribute("listaPropostas", listaPropostas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/listaPropostaCarro.jsp");
-        dispatcher.forward(request, response);
-    }
-
-
-    private Map<Long, String> getLojas() {
-        Map <Long,String> lojas = new HashMap<>();
-        for (Loja loja: new LojaDAO().getAll()) {
-            lojas.put(loja.getId_usuario(), loja.getNome());
-        }
-        return lojas;
-    }
-    
-    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setAttribute("lojas", getLojas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/formulario.jsp");
+        request.setAttribute("listaProposta", listaPropostas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
         dispatcher.forward(request, response);
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = (long) Integer.parseInt(request.getParameter("id"));
-        Loja loja = dao.get(id);
+        Loja proposta = daoProposta.get(id);
         Usuario usuario = daoUsuario.getbyID(id);
-        request.setAttribute("Loja", loja);
+        request.setAttribute("proposta", proposta);
         request.setAttribute("Usuario", usuario);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lojas/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -27,6 +27,20 @@
 		<td><input type="text" id="condPagamento" name="condPagamento" size="45" required
 			value="${proposta.condPagamento}" /></td>
 	</tr>
+		<c:choose>
+			<c:when test="${proposta.status  != NULL }">
+				<td><label for="status">Status</label></td>
+				<td><select id="status" name="status">
+							<option value="${proposta.status}"
+								${proposta.status !=NULL ? 'selected' : '' } ${proposta.status !=NULL ? 'selected' : '' }>
+								${proposta.status}</option>
+				</select></td>
+			</c:when>
+			<c:otherwise>
+				<td><label for="status">Status</label></td>
+				<td><input type="text" id="status" name="status" size="50" required readonly value=""></td>
+			</c:otherwise>
+		</c:choose>
 	<tr>
 		<td><label for="idCarro">idCarro</label></td>
 		<td><input type="number" id="idCarro" name="idCarro" size="20" readonly required
@@ -39,8 +53,7 @@
 	</tr>
 	<tr>
 		<td><label for="idCliente">Cliente</label></td>
-		<td><input type="number" id="idCliente" name="idCliente" size="20" readonly required
-			value="${proposta.cliente.id_usuario}" /></td>
+		<td><input type="number" id="idCliente" name="idCliente" size="20" readonly required value="${proposta.cliente.id_usuario}"></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center"><input type="submit" value="Salva" /></td>
