@@ -23,11 +23,6 @@
 		<h1>Lista de propostas</h1>
 		<h2>
 			<c:if test="${Usuario != null }">
-				<c:if test="${Usuario.papel == 'CLIENTE'}">
-					<a href="/<%=contextPath%>/usuario">Menu Usuário</a>
-				</c:if>
-			</c:if>
-			<c:if test="${Usuario != null }">
 				<c:if test="${Usuario.papel == 'LOJA'}">
 					<a href="/<%=contextPath%>/loja">Menu Loja</a>
 				</c:if>
