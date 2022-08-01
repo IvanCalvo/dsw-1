@@ -71,6 +71,9 @@ private static final long serialVersionUID = 1L;
                 case "/lista":
                     lista(request, response);
                     break;
+                case "/listaPorLoja":
+                    listaDaLoja(request, response);
+                    break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
             throw new ServletException(e);
@@ -83,6 +86,17 @@ private static final long serialVersionUID = 1L;
     	
         List<Proposta> listaProposta = dao.getbyID_usuario(usuario.getId());
         request.setAttribute("listaProposta", listaProposta);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void listaDaLoja(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    	
+        List<Proposta> listaProposta = dao.getbyID_loja(usuario.getId());
+        request.setAttribute("listaProposta", listaProposta);
+        request.setAttribute("Usuario", usuario);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
         dispatcher.forward(request, response);
     }
@@ -114,6 +128,10 @@ private static final long serialVersionUID = 1L;
         Long id = Long.parseLong(request.getParameter("id"));
         Proposta proposta = dao.get(id);
         request.setAttribute("proposta", proposta);
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        request.setAttribute("Usuario", usuario);
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -154,7 +172,8 @@ private static final long serialVersionUID = 1L;
         Carro carro = new CarroDAO().get(id_carro);
         Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
         dao.update(proposta);
-        response.sendRedirect("lista");
+        
+        response.sendRedirect("listaPorLoja");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)

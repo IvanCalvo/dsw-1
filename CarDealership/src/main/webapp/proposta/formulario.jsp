@@ -25,7 +25,12 @@
 		<div align="center">
 			<h1>Gerenciamento de propostas</h1>
 			<h2>
-				<a href="lista">Lista de propostas</a>
+				<c:if test="${Usuario.papel == 'CLIENTE'}">
+					<a href="lista">Lista de propostas</a>
+				</c:if>
+				<c:if test="${Usuario.papel == 'LOJA'}">
+					<a href="listaPorLoja">Lista de propostas</a>
+				</c:if>
 				<a href="/<%=contextPath%>/usuario/listaCarros">Lista de carros</a>
 			</h2>
 		</div>
