@@ -174,6 +174,7 @@ private static final long serialVersionUID = 1L;
     	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
         List<Proposta> listaProposta = daoProposta.getbyID_usuario(usuario.getId());
         request.setAttribute("listaProposta", listaProposta);
+        request.setAttribute("Usuario", usuario);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
         dispatcher.forward(request, response);
     }
