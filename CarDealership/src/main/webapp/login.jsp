@@ -9,6 +9,7 @@
         <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+    <%String contextPath = request.getContextPath().replace("/", "");%>
         <h1>Autenticação de Usuário</h1>
         <c:if test="${mensagens.existeErros}">
             <div id="erro">
@@ -37,5 +38,6 @@
                 </tr>
             </table>
         </form>
+        <a href="/<%=contextPath%>">Menu Principal</a>
     </body>
 </html>

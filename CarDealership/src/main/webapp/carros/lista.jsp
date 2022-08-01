@@ -46,6 +46,15 @@
 		<h1>Gerenciamento de Carros</h1>
 		<h2>
 			<a href="/<%=contextPath%>">Menu Principal</a>
+			<c:if test="${Usuario != null }">
+				<c:if test="${Usuario.papel == 'CLIENTE'}">
+					<a href="/<%=contextPath%>/cliente/">Menu Cliente</a>
+				</c:if>
+				<c:if test="${Usuario.papel == 'LOJA'}">
+					<a href="${pageContext.request.contextPath}/loja/">Menu Loja</a>
+					<a href="${pageContext.request.contextPath}/carro/cadastro">Adicione Novo Carro</a>
+				</c:if>
+			</c:if>
 		</h2>
 	</div>
 
@@ -78,13 +87,14 @@
 					<td>${carro.quilometragem}</td>
 					<td>${carro.descricao}</td>
 					<td>${carro.valor}</td>
-					<td>
-						<c:if test="${Usuario != null }">
-							<c:if test="${Usuario.papel == 'CLIENTE'}">
-								<a href="/<%=contextPath%>/propostas/cadastro?id=${carro.id}">Fazer Proposta</a>
-							</c:if>
+					<c:if test="${Usuario != null }">
+						<c:if test="${Usuario.papel == 'CLIENTE'}">
+							<td><a href="/<%=contextPath%>/propostas/cadastro?id=${carro.id}">Fazer Proposta</a></td>
 						</c:if>
-					</td>
+						<c:if test="${Usuario.papel == 'LOJA'}">
+							<td><a href="/<%= contextPath%>/loja/listaProposta?id=${carro.id}">Propostas</a></td>
+						</c:if>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</table>

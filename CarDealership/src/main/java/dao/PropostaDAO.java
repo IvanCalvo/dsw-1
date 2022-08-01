@@ -157,7 +157,7 @@ public class PropostaDAO extends GenericDAO {
 
     public void update(Proposta proposta) {
         String sql = "UPDATE Proposta SET valor = ?, condPagamento = ?, dataAtual = ?, statusCompra = ?";
-        sql += ", cliente_id = ?, carro_id = ?, WHERE id = ?";
+        sql += ", cliente_id = ?, carro_id = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -224,6 +224,47 @@ public class PropostaDAO extends GenericDAO {
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setLong(1, id_usuario);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                Float valor = resultSet.getFloat("valor");
+                String condPagamento = resultSet.getString("condPagamento");
+                LocalDate dataProposta = LocalDate.parse(resultSet.getString("dataAtual"));
+                String status = resultSet.getString("statusCompra");
+                Long cliente_id = resultSet.getLong("c.id");
+                String cpf = resultSet.getString("cpf");
+                String nome =  resultSet.getString("nome");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                LocalDate dataDeNascimento = LocalDate.parse(resultSet.getString("dataDeNascimento"));
+                Long carro_id = resultSet.getLong("carro_id");
+                
+                Carro carro =  new CarroDAO().get(carro_id);
+                Cliente cliente = new Cliente(cliente_id, cpf, nome, telefone, sexo, dataDeNascimento);
+                Proposta proposta = new Proposta(id, valor, condPagamento, dataProposta, status, cliente, carro);
+                listaProposta.add(proposta);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaProposta;
+    }
+    
+    public List<Proposta> getbyID_loja(Long id_loja) {
+
+        List<Proposta> listaProposta = new ArrayList<>();
+
+        String sql = "SELECT * from Proposta p INNER JOIN Cliente c ON p.CLIENTE_ID = c.id LEFT JOIN carro car ON carro_id = car.id where car.id_loja = ? order by p.id";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setLong(1, id_loja);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
