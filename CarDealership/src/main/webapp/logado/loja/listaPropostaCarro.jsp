@@ -27,6 +27,7 @@
 				<th>Condição de Pagamento</th>
 				<th>Status</th>
 				<th>Data de Proposta</th>
+				<th>Ações</th>
 			</tr>
 			<c:forEach var="Proposta" items="${requestScope.listaPropostas}">
 				<tr>
@@ -36,6 +37,7 @@
 					<td>${Proposta.condPagamento}</td>
 					<td>${Proposta.status}</td>
 					<td>${Proposta.dataProposta}
+					<td><a href="/<%=contextPath%>/propostas/edicao?id=${Proposta.id}">Aceitar/Rejeitar</a></td>
 				</tr>
 			</c:forEach>
 		</table>

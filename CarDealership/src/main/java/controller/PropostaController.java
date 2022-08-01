@@ -144,13 +144,13 @@ private static final long serialVersionUID = 1L;
     	Long proposta_id = Long.parseLong(request.getParameter("id"));
     	Float valor = Float.parseFloat(request.getParameter("valor"));
         String modelo = request.getParameter("condPagamento");
-    	LocalDate dataAtual = LocalDate.parse(request.getParameter("dataAtual"));
+    	LocalDate dataAtual = LocalDate.parse(request.getParameter("dataProposta"));
     	String status = request.getParameter("status");
         
-        Long id_cliente = Long.parseLong(request.getParameter("cliente"));
+        Long id_cliente = Long.parseLong(request.getParameter("idCliente"));
         Cliente cliente = new ClienteDAO().get(id_cliente);
         
-        Long id_carro = Long.parseLong(request.getParameter("cliente"));
+        Long id_carro = Long.parseLong(request.getParameter("idCarro"));
         Carro carro = new CarroDAO().get(id_carro);
         Proposta proposta = new Proposta(proposta_id, valor, modelo, dataAtual, status, cliente, carro);
         dao.update(proposta);

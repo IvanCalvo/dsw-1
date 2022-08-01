@@ -157,7 +157,7 @@ public class PropostaDAO extends GenericDAO {
 
     public void update(Proposta proposta) {
         String sql = "UPDATE Proposta SET valor = ?, condPagamento = ?, dataAtual = ?, statusCompra = ?";
-        sql += ", cliente_id = ?, carro_id = ?, WHERE id = ?";
+        sql += ", cliente_id = ?, carro_id = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();

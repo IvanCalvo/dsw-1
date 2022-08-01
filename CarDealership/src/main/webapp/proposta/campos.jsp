@@ -28,6 +28,16 @@
 			value="${proposta.condPagamento}" /></td>
 	</tr>
 	<tr>
+		<td><label for="status">Status</label></td>
+		<td><input type="text" id="status" name="status" size="45" required
+			value="${proposta.status}" /></td>
+	</tr>
+	<tr>
+		<td><label for="dataProposta">Data</label></td>
+		<td><input type="text" id="dataProposta" name="dataProposta" size="45" required
+			value="${proposta.dataProposta}" /></td>
+	</tr>
+	<tr>
 		<td><label for="idCarro">idCarro</label></td>
 		<td><input type="number" id="idCarro" name="idCarro" size="20" readonly required
 			value="${proposta.carro.id}" /></td>
