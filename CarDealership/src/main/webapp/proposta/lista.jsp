@@ -31,6 +31,9 @@
 				<c:if test="${Usuario.papel == 'LOJA'}">
 					<a href="/<%=contextPath%>/loja">Menu Loja</a>
 				</c:if>
+				<c:if test="${Usuario.papel == 'CLIENTE'}">
+					<a href="/<%=contextPath%>/cliente">Menu Cliente</a>
+				</c:if>
 			</c:if>
 			
 		</h2>
