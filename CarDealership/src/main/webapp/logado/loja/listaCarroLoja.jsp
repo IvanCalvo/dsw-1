@@ -36,7 +36,7 @@
 	<div align="center">
 		<h1>Gerenciamento de Carros da ${sessionScope.usuarioLogado.email}</h1>
 		<h2>
-			<a href="${pageContext.request.contextPath}/loja">Menu Loja</a>
+			<a href="${pageContext.request.contextPath}/loja/">Menu Loja</a>
 			<a href="${pageContext.request.contextPath}/carro/cadastro">Adicione Novo Carro</a>
 		</h2>
 	</div>

@@ -12,8 +12,8 @@
         <ul>
             <li>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
-                <a href="${pageContext.request.contextPath}/usuario/listaProposta">Lista Propostas</a>
-                <a href="${pageContext.request.contextPath}/usuario/listaCarros">Lista Carros</a>
+                <a href="${pageContext.request.contextPath}/cliente/listaProposta">Lista Propostas</a>
+                <a href="${pageContext.request.contextPath}/cliente/listaCarros">Lista Carros</a>
             </li>
         </ul>
     </body>

@@ -31,14 +31,15 @@
 			<c:when test="${proposta.status  != NULL }">
 				<td><label for="status">Status</label></td>
 				<td><select id="status" name="status">
-							<option value="${proposta.status}"
-								${proposta.status !=NULL ? 'selected' : '' } ${proposta.status !=NULL ? 'selected' : '' }>
-								${proposta.status}</option>
+							<option value="NÃO ACEITO" ${proposta.status == 'NÃO ACEITO' ? 'selected' : '' } ${proposta.status == 'NÃO ACEITO' ? 'selected' : '' }>
+								NÃO ACEITO</option>
+							<option value="ACEITO" ${proposta.status == 'ACEITO' ? 'selected' : '' } ${proposta.status == 'ACEITO' ? 'selected' : '' }>
+								ACEITO</option>
 				</select></td>
 			</c:when>
 			<c:otherwise>
 				<td><label for="status">Status</label></td>
-				<td><input type="text" id="status" name="status" size="50" required readonly value=""></td>
+				<td><input type="text" id="status" name="status" size="50" required readonly value="ABERTO"></td>
 			</c:otherwise>
 		</c:choose>
 	<tr>

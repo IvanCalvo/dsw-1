@@ -62,9 +62,6 @@ private static final long serialVersionUID = 1L;
             }
 	        try {
 	            switch (action) {
-	                case "/cadastro":
-	                    apresentaFormCadastro(request, response);
-	                    break;
 	                case "/insercao":
 	                    insere(request, response);
 	                    break;
@@ -105,7 +102,8 @@ private static final long serialVersionUID = 1L;
     	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
         List<Carro> listaCarros = daoCarro.getAll(usuario.getId());
         request.setAttribute("listaCarros", listaCarros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/listaCarroLoja.jsp");
+        request.setAttribute("Usuario", usuario);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carros/lista.jsp");
         dispatcher.forward(request, response);
     }
     
@@ -124,7 +122,7 @@ private static final long serialVersionUID = 1L;
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = (long) Integer.parseInt(request.getParameter("id"));
-        Loja proposta = daoProposta.get(id);
+        Proposta proposta = daoProposta.get(id);
         Usuario usuario = daoUsuario.getbyID(id);
         request.setAttribute("proposta", proposta);
         request.setAttribute("Usuario", usuario);
