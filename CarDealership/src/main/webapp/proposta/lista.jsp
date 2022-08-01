@@ -22,7 +22,15 @@
 	<div align="center">
 		<h1>Lista de propostas</h1>
 		<h2>
-			<a href="/<%=contextPath%>/usuario">Menu Usuário</a>
+			<c:if test="${Usuario != null }">
+				<c:if test="${Usuario.papel == 'LOJA'}">
+					<a href="/<%=contextPath%>/loja">Menu Loja</a>
+				</c:if>
+				<c:if test="${Usuario.papel == 'CLIENTE'}">
+					<a href="/<%=contextPath%>/cliente">Menu Cliente</a>
+				</c:if>
+			</c:if>
+			
 		</h2>
 	</div>
 
@@ -34,8 +42,14 @@
 				<th>Modelo</th>
 				<th>Loja</th>
 				<th>Condição de Pagamento</th>
+				<th>valor</th>
 				<th>Status</th>
 				<th>Data de Proposta</th>
+				<c:if test="${Usuario != null }">
+					<c:if test="${Usuario.papel == 'LOJA'}">
+						<th>Ações</th>
+					</c:if>
+				</c:if>
 			</tr>
 			<c:forEach var="Proposta" items="${requestScope.listaProposta}">
 				<tr>
@@ -43,8 +57,14 @@
 					<td>${Proposta.carro.modelo}</td>
 					<td>${Proposta.carro.loja.nome}</td>
 					<td>${Proposta.condPagamento}</td>
+					<td>${Proposta.valor}</td>
 					<td>${Proposta.status}</td>
-					<td>${Proposta.dataProposta}
+					<td>${Proposta.dataProposta}</td>
+					<c:if test="${Usuario != null }">
+							<c:if test="${Usuario.papel == 'LOJA'}">
+								<td><a href="/<%=contextPath%>/propostas/edicao?id=${Proposta.id}">Responder Proposta</a></td>
+							</c:if>
+						</c:if>
 				</tr>
 			</c:forEach>
 		</table>

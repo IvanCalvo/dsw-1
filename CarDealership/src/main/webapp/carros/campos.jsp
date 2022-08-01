@@ -59,7 +59,7 @@
 	</tr>
 	<tr>
 		<td><label for="fotos">Fotos</label></td>
-		<td><input type="text" id="fotos" name="fotos" size="45"
+		<td><input type="text" id="fotos" name="fotos" size="10"
 			required value="${carro.fotos}" /></td>
 	</tr>
 	<tr>

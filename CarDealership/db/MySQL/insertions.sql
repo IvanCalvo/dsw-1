@@ -8,11 +8,19 @@ insert into Usuario(email, senha, papel) values ('loja2', 'loja2', 'LOJA');
 insert into Usuario(email, senha, papel) values ('loja3', 'loja3', 'LOJA');
 insert into Usuario(email, senha, papel) values ('loja4', 'loja4', 'LOJA');
 
+insert into Usuario(email, senha, papel) values ('cliente1', 'cliente1', 'CLIENTE');
+insert into Usuario(email, senha, papel) values ('cliente2', 'cliente2', 'CLIENTE');
+insert into Usuario(email, senha, papel) values ('cliente3', 'cliente3', 'CLIENTE');
+
+
 insert into lojas(nome, id, descricao, cnpj) values ('Loja 1', 3, 'Loja de Veículos número 1', 123);
 insert into lojas(nome, id, descricao, cnpj) values ('Loja 2', 4, 'Loja de Veículos número 2', 456);
 insert into lojas(nome, id, descricao, cnpj) values ('Loja 3', 5, 'Loja de Veículos número 3', 789);
 insert into lojas(nome, id, descricao, cnpj) values ('Loja 4', 6, 'Loja de Veículos número 4', 1231231231);
 
+insert into Cliente(id, cpf, nome, telefone, sexo, dataDeNascimento) values (7, '111111111', 'Cliente 1', '16999998888', 'M', '1998-10-05');
+insert into Cliente(id, cpf, nome, telefone, sexo, dataDeNascimento) values (8, '222222222', 'Cliente 2', '16997798888', 'F', '1977-12-08');
+insert into Cliente(id, cpf, nome, telefone, sexo, dataDeNascimento) values (9, '333333333', 'Cliente 3', '16992538888', 'N', '2000-03-24');
 
 insert into carro(cnpj_loja, id_loja, placa, modelo, chassi, ano, quilometragem, descricao, valor, fotos) values(
     123,
