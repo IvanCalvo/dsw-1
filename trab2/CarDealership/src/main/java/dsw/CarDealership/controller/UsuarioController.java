@@ -61,9 +61,7 @@ public class UsuarioController {
 	@PostMapping("/editar")
 	public String editar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
 		
-		if (result.hasErrors()) {
-			return "usuario/cadastro";
-		}
+		
 
 		System.out.println(usuario.getSenha());
 		

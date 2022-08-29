@@ -33,7 +33,7 @@
 				</div>
 			</tr>
 				<tr th:each="Proposta : ${propostas}">
-				<div th:if="${#httpServletRequest.remoteUser == Proposta.carro.loja.nome}">
+				<div th:if="${#httpServletRequest.remoteUser == Proposta.carro.loja.email}">
 					<td th:text ="${Proposta.id}"></td>
 					<td th:text ="${Proposta.carro.modelo}"></td>
 					<td th:text ="${Proposta.carro.loja.nome}"></td>

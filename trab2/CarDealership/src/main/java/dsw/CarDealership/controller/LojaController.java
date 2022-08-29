@@ -91,9 +91,7 @@ public class LojaController {
 		
 		// Apenas rejeita se o problema não for com o CNPJ (CNPJ campo read-only) 
 		
-		if (result.hasErrors()) {
-			return "loja/cadastro";
-		}
+		
 		
 		System.out.println(loja.getSenha());
 

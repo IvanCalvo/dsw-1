@@ -61,9 +61,7 @@ public class ClienteController {
 	@PostMapping("/editar")
 	public String editar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
 		
-		if (result.hasErrors()) {
-			return "cliente/cadastro";
-		}
+		
 
 		System.out.println(cliente.getSenha());
 		

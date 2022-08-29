@@ -51,7 +51,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="carro : ${carros}">
-				<div th:if="${#httpServletRequest.remoteUser == carro.loja.nome}">
+				<div th:if="${#httpServletRequest.remoteUser == carro.loja.email}">
 					<td th:text="${carro.id}"></td>
 					<td th:text="${carro.loja.nome}"></td>
 					<td th:text="${carro.placa}"></td>

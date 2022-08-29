@@ -32,18 +32,20 @@
 				</div>
 			</tr>
 				<tr th:each="Proposta : ${propostas}">
-					<td th:text ="${Proposta.id}"></td>
-					<td th:text ="${Proposta.carro.modelo}"></td>
-					<td th:text ="${Proposta.carro.loja.nome}"></td>
-					<td th:text ="${Proposta.condPagamento}"></td>
-					<td th:text ="${Proposta.valor}"></td>
-					<td th:text ="${Proposta.status}"></td>
+					<div th:if="${#httpServletRequest.remoteUser == Proposta.cliente.email}">
+						<td th:text ="${Proposta.id}"></td>
+						<td th:text ="${Proposta.carro.modelo}"></td>
+						<td th:text ="${Proposta.carro.loja.nome}"></td>
+						<td th:text ="${Proposta.condPagamento}"></td>
+						<td th:text ="${Proposta.valor}"></td>
+						<td th:text ="${Proposta.status}"></td>
 							<div sec:authorize="hasAuthority('CLIENTE')">
 								<td><a th:href="@{/propostas/excluir/{id} (id=${Proposta.id}) }">Excluir Proposta</a></td>
 								<div th:if="${Proposta.status == 'CONTRA'}">
 									<td><a th:href="@{/propostas/editar/{id} (id=${Proposta.id}) }">Responder Proposta</a></td>
 								</div>
 							</div>
+					</div>
 				</tr>
 		</table>
 	</div>

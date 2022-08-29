@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import dsw.CarDealership.validation.UniqueCPF;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Cliente")
@@ -21,6 +23,7 @@ public class Cliente extends Usuario{
 	@Column(nullable = false, length = 19)
 	private String nome;
 	@NotNull(message = "{NotNull.cliente.cpf}")
+	@UniqueCPF(message = "{NotUnique.cliente.cpf}")
 	@Column(nullable = false, length = 19)
 	private String cpf;
 	@NotNull(message = "{NotNull.cliente.telefone}")

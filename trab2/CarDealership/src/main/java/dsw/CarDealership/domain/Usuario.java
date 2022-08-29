@@ -3,6 +3,8 @@ package dsw.CarDealership.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import dsw.CarDealership.validation.UniqueEMAIL;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Usuario")
@@ -10,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class Usuario extends AbstractEntity<Long> {
 	
 	@NotNull(message = "{NotNull.usuario.email}")
+	@UniqueEMAIL(message = "{NotUnique.usuario.email}")
 	@Column(nullable = false, unique = true, length = 19)
 	private String email;
 	
