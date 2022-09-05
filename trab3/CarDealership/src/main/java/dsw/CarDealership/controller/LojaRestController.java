@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +38,7 @@ public class LojaRestController {
 		} catch (IOException e) {
 			return false;
 		}
+
  }
 
 	private void parse(Loja loja, JSONObject json) {
@@ -46,6 +50,7 @@ public class LojaRestController {
 			} else {
 				loja.setId((Long) id);
 			}
+
  	}
 
 		loja.setNome((String) json.get("nome"));
@@ -92,6 +97,7 @@ public class LojaRestController {
 		}
  }
 
+
 	@PutMapping(path = "/lojas/{id}")
 	public ResponseEntity<Loja> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
 		try {
@@ -110,6 +116,7 @@ public class LojaRestController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
 		}
+
  }
 
 	@DeleteMapping(path = "/lojas/{id}")
