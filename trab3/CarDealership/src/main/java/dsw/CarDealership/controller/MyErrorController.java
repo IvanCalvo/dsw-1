@@ -1,4 +1,4 @@
-package dsw.CarDealership.controller;
+/* package dsw.CarDealership.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -12,4 +12,4 @@ public class MyErrorController implements ErrorController  {
         //do something like logging
         return "error";
     }
-}
+} */
