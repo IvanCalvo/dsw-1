@@ -41,7 +41,7 @@ public class CarroRestController {
 
     @SuppressWarnings("unchecked")
 	private void parse(Loja loja, JSONObject json) {
-		Map<String, Object> map = (Map<String, Object>) json.get("estado");
+		Map<String, Object> map = (Map<String, Object>) json.get("loja");
 		
 		Object id = map.get("id");
 		if (id instanceof Integer) {
@@ -49,10 +49,6 @@ public class CarroRestController {
 		} else {
 			loja.setId((Long) id);
 		}
-		 		
-		loja.setNome((String) json.get("nome"));
-        loja.setCnpj((String) json.get("cnpj"));
-		loja.setDescricao((String) json.get("descricao"));
 	}
 
 	private void parse(Carro carro, JSONObject json) {
@@ -72,7 +68,12 @@ public class CarroRestController {
         carro.setAno((Integer) json.get("ano"));
         carro.setQuilometragem((Integer) json.get("quilometragem"));
         carro.setDescricao((String) json.get("descricao"));
-        carro.setValor((BigDecimal) json.get("valor"));
+        carro.setValor(BigDecimal.valueOf((Double) json.get("valor")));
+		carro.setFotos((String) json.get("fotos"));
+
+		Loja loja = new Loja();
+		parse(loja, json);
+		carro.setLoja(loja);
 	}
 
 	@GetMapping(path = "/carros")
@@ -93,11 +94,13 @@ public class CarroRestController {
 		return ResponseEntity.ok(carro);
 	}
 
-    @GetMapping(path = "/carros/lojas/{id}")
-	public ResponseEntity<List<Carro>> listaPorLoja(@PathVariable("id") long id) {
+
+
+	@GetMapping(path = "/carros/modelos/{modelo}")
+	public ResponseEntity<List<Carro>> listaPorLoja(@PathVariable("modelo") String modelo) {
 		
         //ainda tá com erro, provavelmente tem que editar o service
-		List<Carro> lista = service.buscaPorLoja(id);
+		List<Carro> lista = service.buscaPorModelo(modelo);
 		
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -106,7 +109,7 @@ public class CarroRestController {
 	}
 
 
-	@PostMapping(path = "/carros")
+	@PostMapping(path = "/carros/lojas/{id}")
 	@ResponseBody
 	public ResponseEntity<Carro> cria(@RequestBody JSONObject json) {
 		try {

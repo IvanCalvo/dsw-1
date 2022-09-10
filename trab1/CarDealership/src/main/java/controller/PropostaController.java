@@ -86,6 +86,7 @@ private static final long serialVersionUID = 1L;
     	
         List<Proposta> listaProposta = dao.getbyID_usuario(usuario.getId());
         request.setAttribute("listaProposta", listaProposta);
+        request.setAttribute("Usuario", usuario);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/proposta/lista.jsp");
         dispatcher.forward(request, response);
     }
