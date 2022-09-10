@@ -40,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/clientes", "/lojas").permitAll()
 				.antMatchers("/clientes/{\\d+}", "/lojas/{\\d+}").permitAll()
@@ -47,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/propostas/clientes/{\\d+}").permitAll()
 				.antMatchers("/carros/lojas/{\\d+}").permitAll()
 				.antMatchers("/carros/modelos/{\\w+}").permitAll()
-
 				.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").permitAll()
 				.and().logout().logoutSuccessUrl("/").permitAll();
