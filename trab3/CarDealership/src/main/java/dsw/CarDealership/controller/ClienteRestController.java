@@ -55,7 +55,7 @@ public class ClienteRestController {
 		cliente.setPapel((String) json.get("papel"));
 		cliente.setSenha((String) json.get("senha"));
 		cliente.setCpf((String) json.get("cpf"));
-		cliente.setDataDeNascimento((LocalDate) json.get("dataDeNascimento"));
+		cliente.setDataDeNascimento((LocalDate.parse((String) json.get("dataDeNascimento"))));
 		cliente.setSexo((String) json.get("sexo"));
 		cliente.setTelefone((String) json.get("telefone"));
 	}
