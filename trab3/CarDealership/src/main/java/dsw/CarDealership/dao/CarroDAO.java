@@ -19,7 +19,7 @@ public interface CarroDAO extends CrudRepository<Carro, Long>{
 	
 	void deleteById(Long id);
 
-	@Query("SELECT c FROM Carro c, Loja l WHERE l.id = :id")
+	@Query("Select c FROM Carro c LEFT JOIN  Loja l  ON c.loja = l.id WHERE l.id =:id")
 	List<Carro> findByLojaId(@Param("id") long id);
 }
 
