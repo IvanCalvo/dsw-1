@@ -1,6 +1,7 @@
 package dsw.CarDealership.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,19 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dsw.CarDealership.domain.Loja;
-import dsw.CarDealership.service.spec.ILojaService;
+import dsw.CarDealership.domain.Cliente;
+import dsw.CarDealership.service.spec.IClienteService;
 
 @CrossOrigin
 @RestController
-public class LojaRestController {
-	
+public class ClienteRestController {
 	@Autowired
-	private ILojaService service;
+	private IClienteService service;
 	
 	private boolean isJSONValid(String jsonInString) {
 		try {
@@ -41,53 +38,55 @@ public class LojaRestController {
 
  }
 
-	private void parse(Loja loja, JSONObject json) {
+	private void parse(Cliente cliente, JSONObject json) {
 		
 		Object id = json.get("id");
 		if (id != null) {
 			if (id instanceof Integer) {
-				loja.setId(((Integer) id).longValue());
+				cliente.setId(((Integer) id).longValue());
 			} else {
-				loja.setId((Long) id);
+				cliente.setId((Long) id);
 			}
 
  	}
 
-		loja.setNome((String) json.get("nome"));
-		loja.setCnpj((String) json.get("cnpj"));
-		loja.setEmail((String) json.get("email"));
-		loja.setDescricao((String) json.get("descricao"));
-		loja.setPapel((String) json.get("papel"));
-		loja.setSenha((String) json.get("senha"));
- }
+		cliente.setNome((String) json.get("nome"));
+		cliente.setEmail((String) json.get("email"));
+		cliente.setPapel((String) json.get("papel"));
+		cliente.setSenha((String) json.get("senha"));
+		cliente.setCpf((String) json.get("cpf"));
+		cliente.setDataDeNascimento((LocalDate) json.get("dataDeNascimento"));
+		cliente.setSexo((String) json.get("sexo"));
+		cliente.setTelefone((String) json.get("telefone"));
+	}
 
-	@GetMapping(path = "/lojas")
-	public ResponseEntity<List<Loja>> lista() {
-		List<Loja> lista = service.buscarTodos();
+	@GetMapping(path = "/clientes")
+	public ResponseEntity<List<Cliente>> lista() {
+		List<Cliente> lista = service.buscarTodos();
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(lista);
  }
 
-	@GetMapping(path = "/lojas/{id}")
-	public ResponseEntity<Loja> lista(@PathVariable("id") long id) {
-		Loja loja = service.buscarPorId(id);
-		if (loja == null) {
+	@GetMapping(path = "/clientes/{id}")
+	public ResponseEntity<Cliente> lista(@PathVariable("id") long id) {
+		Cliente cliente = service.buscarPorId(id);
+		if (cliente == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(loja);
+		return ResponseEntity.ok(cliente);
  }
 
-	@PostMapping(path = "/lojas")
+	@PostMapping(path = "/clientes")
 	@ResponseBody
-	public ResponseEntity<Loja> cria(@RequestBody JSONObject json) {
+	public ResponseEntity<Cliente> cria(@RequestBody JSONObject json) {
 		try {
 			if (isJSONValid(json.toString())) {
-				Loja loja = new Loja();
-				parse(loja, json);
-				service.salvar(loja);
-				return ResponseEntity.ok(loja);
+				Cliente cliente = new Cliente();
+				parse(cliente, json);
+				service.salvar(cliente);
+				return ResponseEntity.ok(cliente);
 			} else {
 				return ResponseEntity.badRequest().body(null);
 			}
@@ -98,17 +97,17 @@ public class LojaRestController {
  }
 
 
-	@PutMapping(path = "/lojas/{id}")
-	public ResponseEntity<Loja> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+	@PutMapping(path = "/clientes/{id}")
+	public ResponseEntity<Cliente> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
 		try {
 			if (isJSONValid(json.toString())) {
-				Loja loja = service.buscarPorId(id);
-				if (loja == null) {
+				Cliente cliente = service.buscarPorId(id);
+				if (cliente == null) {
 					return ResponseEntity.notFound().build();
 				} else {
-					parse(loja, json);
-					service.salvar(loja);
-					return ResponseEntity.ok(loja);
+					parse(cliente, json);
+					service.salvar(cliente);
+					return ResponseEntity.ok(cliente);
 				}
 			} else {
 				return ResponseEntity.badRequest().body(null);
@@ -119,11 +118,11 @@ public class LojaRestController {
 
  }
 
-	@DeleteMapping(path = "/lojas/{id}")
+	@DeleteMapping(path = "/clientes/{id}")
  public ResponseEntity<Boolean> remove(@PathVariable("id") long id) {
 
-		Loja loja = service.buscarPorId(id);
-		if (loja == null) {
+		Cliente cliente = service.buscarPorId(id);
+		if (cliente == null) {
 			return ResponseEntity.notFound().build();
 		} else {
 			service.excluir(id);
