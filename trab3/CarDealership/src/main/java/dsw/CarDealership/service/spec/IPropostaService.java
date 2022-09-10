@@ -11,9 +11,9 @@ public interface IPropostaService {
 	
 	List<Proposta> buscarTodos();
 	
-	List<Proposta> buscarPorClienteId(Long id);
+	List<Proposta> buscarPorClienteId(Cliente cliente);
 	
-	List<Proposta> buscarPorCarroId(Long id);
+	List<Proposta> buscarPorCarroId(Carro carro);
 	
 	void salvar(Proposta proposta);
 	
