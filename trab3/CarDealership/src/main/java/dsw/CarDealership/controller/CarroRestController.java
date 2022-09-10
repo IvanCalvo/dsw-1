@@ -73,6 +73,10 @@ public class CarroRestController {
         carro.setQuilometragem((Integer) json.get("quilometragem"));
         carro.setDescricao((String) json.get("descricao"));
         carro.setValor((BigDecimal) json.get("valor"));
+
+		Loja loja = new Loja();
+		parse(loja, json);
+		carro.setLoja(loja);
 	}
 
 	@GetMapping(path = "/carros")
