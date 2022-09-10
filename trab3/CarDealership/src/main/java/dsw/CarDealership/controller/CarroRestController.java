@@ -97,17 +97,7 @@ public class CarroRestController {
 		return ResponseEntity.ok(carro);
 	}
 
-    @GetMapping(path = "/carros/lojas/{id}")
-	public ResponseEntity<List<Carro>> listaPorLoja(@PathVariable("id") long id) {
-		
-        //ainda tá com erro, provavelmente tem que editar o service
-		List<Carro> lista = service.buscaPorLoja(id);
-		
-		if (lista.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(lista);
-	}
+
 
 
 	@PostMapping(path = "/carros")

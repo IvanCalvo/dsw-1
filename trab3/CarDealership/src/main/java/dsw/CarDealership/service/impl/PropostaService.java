@@ -37,12 +37,12 @@ public class PropostaService implements IPropostaService {
 	}
 	
 
-	public List<Proposta> buscarPorClienteId(Long id) {
-		return dao.findByIdCliente(id.longValue());
+	public List<Proposta> buscarPorClienteId(Cliente cliente) {
+		return dao.findByIdCliente(cliente);
 	}
 	
 
-	public List<Proposta> buscarPorCarroId(Long id) {
-		return dao.findByIdCarro(id.longValue());
+	public List<Proposta> buscarPorCarroId(Carro carro) {
+		return dao.findByIdCarro(carro);
 	}
 }

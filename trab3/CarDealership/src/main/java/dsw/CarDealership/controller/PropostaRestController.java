@@ -47,9 +47,10 @@ public class PropostaRestController {
 
  }
 
-	@GetMapping(path = "/propostas/veiculos/{id}")
+	@GetMapping(path = "/propostas/carros/{id}")
 	public ResponseEntity<List<Proposta>> listaPorCarroId(@PathVariable("id") long id) {
-		List<Proposta> lista = service.buscarPorCarroId(id);
+		Carro carro = carroService.buscarPorId(id);
+		List<Proposta> lista = service.buscarPorCarroId(carro);
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -58,7 +59,8 @@ public class PropostaRestController {
 
 	@GetMapping(path = "/propostas/clientes/{id}")
 	public ResponseEntity<List<Proposta>> listaPorClienteId(@PathVariable("id") long id) {
-		List<Proposta> lista = service.buscarPorClienteId(id);
+		Cliente cliente = clienteService.buscarPorId(id);
+		List<Proposta> lista = service.buscarPorClienteId(cliente);
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
