@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http .csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/", "/index", "/error","/carros/listar", "/lojas", "/lojas/{\\d+}", "/clientes**", "/clientes/{\\d+}").permitAll()
+				.antMatchers("/", "/index", "/error","/carros/listar", "/lojas", "/lojas/{\\d+}","/propostas/veiculos/{\\d+}","/propostas/clientes/{\\d+}", "/clientes**", "/clientes/{\\d+}").permitAll()
 				.antMatchers("/propostas/**").hasAnyAuthority("CLIENTE","LOJA")
 				.antMatchers("/usuarios/**", "/admin/**","/admins/**").hasAuthority("ADMIN")
 				.antMatchers("/lojas/**", "/carros/**").hasAnyAuthority("LOJA","ADMIN")
