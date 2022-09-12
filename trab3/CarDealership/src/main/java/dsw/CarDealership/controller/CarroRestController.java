@@ -95,7 +95,18 @@ public class CarroRestController {
 	}
 
 
-
+	@GetMapping(path = "/carros/lojas/{id}")
+	public ResponseEntity<List<Carro>> listaPorLoja(@PathVariable("id") long id) {
+		
+        //ainda tá com erro, provavelmente tem que editar o service
+		List<Carro> lista = service.buscaPorLoja(id);
+		
+		if (lista.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(lista);
+	}
+	
 	@GetMapping(path = "/carros/modelos/{modelo}")
 	public ResponseEntity<List<Carro>> listaPorLoja(@PathVariable("modelo") String modelo) {
 		
